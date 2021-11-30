@@ -2,7 +2,12 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark,
+  faSearch,
+  faCommentAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 // import axios from "axios";
 import Cookies from "js-cookie";
@@ -15,7 +20,7 @@ import Review from "./containers/Review";
 import Collection from "./containers/Collection";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-library.add(faBookmark);
+library.add(faBookmark, faSearch, faCommentAlt, faUser);
 
 function App() {
   const [userToken, setUserToken] = useState(Cookies.get("token") || null);

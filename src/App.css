@@ -1,6 +1,9 @@
 /* Other rules */
 
-/* HEADER */
+/*-------- ********** --------*/
+/*********** HEADER ***********/
+/*-------- ********** --------*/
+
 header {
   display: flex;
   justify-content: space-between;
@@ -34,7 +37,10 @@ header div img {
   cursor: pointer;
 }
 
-/* HOMEPAGE */
+/*-------- ********** --------*/
+/*--------- HOMEPAGE ---------*/
+/*-------- ********** --------*/
+
 .container {
   width: 100vw;
   /* height: 100vh; */
@@ -199,7 +205,9 @@ h2 {
   background-color: red;
 }
 
-/* GAME */
+/*-------- ********** --------*/
+/************ GAME ************/
+/*-------- ********** --------*/
 
 .poster .f12 {
   font-size: 8 !important;
@@ -269,7 +277,11 @@ h2 {
 .red {
   color: red;
 }
-/* COLLECTION */
+
+/*-------- ********** --------*/
+/*-------- COLLECTION --------*/
+/*-------- ********** --------*/
+
 .favorites {
   display: flex;
 }
@@ -297,13 +309,74 @@ h2 {
   cursor: pointer;
 }
 
-/****** FOOTER ******/
+/*-------- ********** --------*/
+/*--------   LOG IN   --------*/
+/*-------- ********** --------*/
+.connect {
+  height: 60vh;
+  /* background-color: teal; */
+  display: flex;
+}
+.left-part,
+.right-part {
+  width: 49%;
+  color: white;
+}
+.left-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid red;
+  background-color: #2c2d2f;
+}
+.left-part .text {
+  width: 20vw;
+  margin: 3vh 0;
+  padding: 0 0;
+  /* background-color: thistle; */
+}
+.text .connect-icon {
+  padding: 0 0.5vw;
+}
+.right-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #333436;
+}
+.right-part input {
+  width: 15vw;
+  margin: 2vh 0;
+  padding: 1vh 0.5vw;
+}
+.right-part input[type="submit"] {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 0.5vw;
+}
+.right-part span {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/*-------- ********** --------*/
+/*--------  SIGN  UP  --------*/
+/*-------- ********** --------*/
+
+/*-------- ********** --------*/
+/******----- FOOTER -----******/
+/*-------- ********** --------*/
+
 footer {
   width: 80vw;
   padding: 5vh 10vw;
   background-color: #1f2023;
   color: white;
-  border-top: tomato 1px solid;
+  border-top: #fe4555 1px solid;
   display: flex;
   align-items: center;
   justify-content: center;

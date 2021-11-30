@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Game = ({ userId, token }) => {
   const [data, setData] = useState();
@@ -47,21 +48,6 @@ const Game = ({ userId, token }) => {
     };
     fetchUser();
   }, [slug, refresh, userId]);
-
-  //   useEffect(() => {
-  //     // const fetchUser = async () => {
-  //     //   try {
-  //     //     const response = await axios.get("http://localhost:4000/user", {
-  //     //       params: { id: userId },
-  //     //     });
-  //     //     setUserData(response.data);
-  //     //     console.log(response.data);
-  //     //   } catch (error) {
-  //     //     console.log();
-  //     //   }
-  //     // };
-  //     // fetchUser();
-  //   }, [userId]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -141,13 +127,15 @@ const Game = ({ userId, token }) => {
             />
             <div>
               <div className="row">
-                <button
-                  onClick={() => handleCollection()}
-                  className={checkFavorite() ? "red" : null}
-                >
-                  {checkFavorite()
-                    ? "Saved to Collection"
-                    : "Save to Collection"}
+                <button onClick={() => handleCollection()}>
+                  {checkFavorite() ? (
+                    <div>
+                      Saved to{" "}
+                      <span style={{ color: "green" }}>Collection</span>
+                    </div>
+                  ) : (
+                    <div>Save to Collection</div>
+                  )}
                 </button>
                 <button>Review</button>
               </div>
