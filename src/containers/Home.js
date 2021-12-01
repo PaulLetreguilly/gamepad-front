@@ -25,19 +25,19 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchFilters = async () => {
-      const platforms = await axios.get(
-        "https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51"
-      );
-      setPlatformList(platforms.data);
-      const genres = await axios.get(
-        "https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d"
-      );
-      setGenreList(genres.data);
-    };
-    fetchFilters();
-  }, []);
+  //   useEffect(() => {
+  //     const fetchFilters = async () => {
+  //       const platforms = await axios.get(
+  //         "https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51"
+  //       );
+  //       setPlatformList(platforms.data);
+  //       const genres = await axios.get(
+  //         "https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d"
+  //       );
+  //       setGenreList(genres.data);
+  //     };
+  //     fetchFilters();
+  //   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +73,17 @@ const Home = () => {
       }
     };
     fetchData();
+    const fetchFilters = async () => {
+      const platforms = await axios.get(
+        "https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51"
+      );
+      setPlatformList(platforms.data);
+      const genres = await axios.get(
+        "https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d"
+      );
+      setGenreList(genres.data);
+    };
+    fetchFilters();
   }, [search, page, limit, startFilters]);
 
   return isLoading ? (
@@ -80,7 +91,11 @@ const Home = () => {
   ) : (
     <section className="container">
       <div className="search">
-        <img src={pic} alt="" style={{ width: "20vw", height: "15vh" }} />
+        <img
+          src={pic}
+          alt=""
+          style={{ width: "20vw", height: "10vh", objectFit: "cover" }}
+        />
         <input
           type="text"
           className="search-bar"

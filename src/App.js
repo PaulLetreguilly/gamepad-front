@@ -61,7 +61,7 @@ function App() {
           path={"/collection"}
           element={<Collection userId={userId} token={userToken} />}
         />
-        <Route path={"/review"} element={<Review token={userToken} />} />
+        <Route path={"/review/:slug"} element={<Review token={userToken} />} />
       </Routes>
       <Footer />
     </Router>

@@ -8,9 +8,9 @@ const Game = ({ userId, token }) => {
   const [related, setRelated] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState();
-
+  const [reviews, setReviews] = useState();
   const [changePic, setChangePic] = useState(true);
-  //   const [checkFav, setCheckFav] = useState(false);
+  //   const [checkLike, setCheckLike] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const navigate = useNavigate();
@@ -24,29 +24,48 @@ const Game = ({ userId, token }) => {
         // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
-        const series = await axios.get(
-          `http://localhost:4000/game/series/${slug}`
-        );
-        // console.log("related series ===> ", series.data);
-        setRelated(series.data);
-        const reviews = axios.get(``);
       } catch (error) {
         console.log(error.message);
       }
     };
     fetchData();
+    const fetchRelatedGames = async () => {
+      try {
+        const series = await axios.get(
+          `http://localhost:4000/game/series/${slug}`
+        );
+        // console.log("related series ===> ", series.data);
+        setRelated(series.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchRelatedGames();
     const fetchUser = async () => {
       try {
         const response = await axios.get("http://localhost:4000/user", {
           params: { id: userId },
         });
         setUserData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log();
       }
     };
     fetchUser();
+
+    const fetchReviews = async () => {
+      try {
+        const reviews = await axios.post(`http://localhost:4000/game/reviews`, {
+          slug,
+        });
+        console.log(reviews.data);
+        setReviews(reviews.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchReviews();
   }, [slug, refresh, userId]);
 
   useEffect(() => {
@@ -75,7 +94,7 @@ const Game = ({ userId, token }) => {
           setRefresh(!refresh);
         } else {
           const collection = await axios.post(
-            "http://localhost:4000/create/collection",
+            "http://localhost:4000/create/favorite",
             {
               game: data,
             },
@@ -85,7 +104,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(collection.data);
+          //   console.log(collection.data);
           setRefresh(!refresh);
         }
       } else {
@@ -97,14 +116,222 @@ const Game = ({ userId, token }) => {
   };
 
   const checkFavorite = () => {
-    //   console.log(userData?.Collection);
-    //   console.log(data);
     for (let i = 0; i < userData?.Collection.length; i++) {
       if (data) {
         if (userData.Collection[i].game.id === data.id) {
+          //   setCheckLike(true);
           return true;
         }
       }
+    }
+  };
+
+  const handleLike = async (review) => {
+    try {
+      const likes = [];
+      const dislikes = [];
+      //   let a = 0;
+      for (let i = 0; i < review.like.length; i++) {
+        if (review.like[i].user._id === userData._id) {
+          likes.push(review.like[i]);
+          //   a = i;
+        }
+      }
+      for (let j = 0; j < review.dislike.length; j++) {
+        if (review.dislike[j].user._id === userData._id) {
+          dislikes.push(review.dislike[j]);
+        }
+      }
+      if (likes.length > 0) {
+        console.log("unlike");
+        // console.log(review._id);
+        const unlike = await axios.post(
+          "http://localhost:4000/review/unlike",
+          {
+            id: review._id,
+            user: userData.email,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        // console.log(unlike.data);
+        setRefresh(!refresh);
+      } else {
+        if (dislikes.length > 0) {
+          console.log("like-1");
+          const undislike = await axios.post(
+            "http://localhost:4000/review/undislike",
+            {
+              id: review._id,
+              user: userData.email,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(undislike.data);
+
+          const like = await axios.post(
+            "http://localhost:4000/review/like",
+            {
+              id: review._id,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          // console.log(like.data);
+          setRefresh(!refresh);
+        } else {
+          console.log("like-2");
+          const like = await axios.post(
+            "http://localhost:4000/review/like",
+            {
+              id: review._id,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          // console.log(like.data);
+          setRefresh(!refresh);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  //   const checkReview = async () => {
+  //     // console.log("test");
+  //     for (let i = 0; i < reviews?.length; i++) {
+  //       if (reviews[i].like.length === 0) {
+  //         return false;
+  //       } else {
+  //         if (reviews[i].like.user === userData._id) {
+  //           // console.log(reviews[i].like);
+  //           return true;
+  //         }
+  //       }
+  //     }
+  //   };
+  const checkLike = (review) => {
+    const arr = [];
+    // let a = 0;
+    for (let i = 0; i < review.like.length; i++) {
+      if (review.like[i].user._id === userData._id) {
+        arr.push(review.like[i]);
+        // a = i;
+      }
+    }
+    if (arr.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const checkDislike = (review) => {
+    const arr = [];
+    for (let i = 0; i < review.dislike.length; i++) {
+      if (review.dislike[i].user._id === userData._id) {
+        arr.push(review.dislike[i]);
+      }
+    }
+    if (arr.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const handleDislike = async (review) => {
+    try {
+      const dislikes = [];
+      const likes = [];
+      //   let a = 0;
+      for (let i = 0; i < review.dislike.length; i++) {
+        if (review.dislike[i].user._id === userData._id) {
+          dislikes.push(review.dislike[i]);
+          //   a = i;
+        }
+      }
+      for (let j = 0; j < review.like.length; j++) {
+        if (review.like[j].user._id === userData._id) {
+          likes.push(review.like[j]);
+        }
+      }
+      if (dislikes.length > 0) {
+        console.log("undislike-1");
+        const undislike = await axios.post(
+          "http://localhost:4000/review/undislike",
+          {
+            id: review._id,
+            user: userData.email,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(undislike.data);
+        setRefresh(!refresh);
+      } else {
+        console.log("dislike-2");
+        if (likes.length > 0) {
+          const unlike = await axios.post(
+            "http://localhost:4000/review/unlike",
+            {
+              id: review._id,
+              user: userData.email,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(unlike.data);
+          // setRefresh(!refresh);
+
+          const dislike = await axios.post(
+            "http://localhost:4000/review/dislike",
+            {
+              id: review._id,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(dislike.data);
+          setRefresh(!refresh);
+        } else {
+          const dislike = await axios.post(
+            "http://localhost:4000/review/dislike",
+            {
+              id: review._id,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(dislike.data);
+          setRefresh(!refresh);
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -114,7 +341,7 @@ const Game = ({ userId, token }) => {
     <section className="container">
       <section className="contain">
         <section className="part-1">
-          <div className="white">{data.name}</div>
+          <h3 className="white">{data.name}</h3>
           <div className="poster">
             <img
               className="game-pic"
@@ -137,7 +364,9 @@ const Game = ({ userId, token }) => {
                     <div>Save to Collection</div>
                   )}
                 </button>
-                <button>Review</button>
+                <button onClick={() => navigate(`/review/${data.slug}`)}>
+                  Review
+                </button>
               </div>
               <div className="row">
                 <span>
@@ -197,7 +426,7 @@ const Game = ({ userId, token }) => {
           </div>
         </section>
         <section className="part-2">
-          <div className="white">Games like {data.name}</div>
+          <h3 className="white">Games like {data.name}</h3>
           <div className="series">
             {related?.results.map((e, i) => {
               return (
@@ -211,6 +440,34 @@ const Game = ({ userId, token }) => {
                     <img src={e.background_image} alt="" />
                   </div>
                 )
+              );
+            })}
+          </div>
+        </section>
+        <section className="part-3">
+          <h3 className="white">Reviews</h3>
+          <div className="section-review">
+            {reviews?.map((review) => {
+              return (
+                <div key={review._id} className="reviews">
+                  <h4>{review.title}</h4>
+                  <div>{review.description}</div>
+                  <div>{review.user.username}</div>
+                  {/* {user.image && <img src={user.image} alt="" />} */}
+                  <button
+                    onClick={() => handleLike(review)}
+                    className={checkLike(review) ? "like" : null}
+                  >
+                    like
+                  </button>
+                  <button
+                    onClick={() => handleDislike(review)}
+                    className={checkDislike(review) ? "dislike" : null}
+                  >
+                    dislike
+                  </button>
+                  <div>{review.like.length - review.dislike.length} </div>
+                </div>
               );
             })}
           </div>

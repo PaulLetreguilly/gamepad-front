@@ -11,7 +11,7 @@ const Login = ({ setConnected, token }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (token) {
-      navigate("/");
+      navigate(-1);
     }
   }, [token]);
 

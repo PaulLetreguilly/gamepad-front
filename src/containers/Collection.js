@@ -18,7 +18,7 @@ const Collection = ({ userId, token }) => {
         try {
           // console.log("my token : ", token);
           const response = await axios.get(
-            "http://localhost:4000/collection",
+            "http://localhost:4000/get/favorite",
             // {
             //   params: { _id: userId },
             // },

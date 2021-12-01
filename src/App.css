@@ -16,7 +16,8 @@ header {
 }
 header div img {
   width: 10vw;
-  height: 8vh;
+  height: 5vh;
+  object-fit: cover;
 }
 .right-header {
   display: flex;
@@ -277,7 +278,30 @@ h2 {
 .red {
   color: red;
 }
-
+.section-review {
+  width: 60vw;
+  margin: 0 auto;
+  background-color: pink;
+  margin-left: 10vw;
+}
+.reviews {
+  margin: 1vh 0;
+  height: 20vh;
+  background-color: #2a2b2e;
+  color: white;
+}
+.reviews h4 {
+  text-decoration: underline;
+  margin: 2vh 0;
+}
+.like {
+  color: white;
+  background-color: green;
+}
+.dislike {
+  color: white;
+  background-color: red;
+}
 /*-------- ********** --------*/
 /*-------- COLLECTION --------*/
 /*-------- ********** --------*/
@@ -311,6 +335,7 @@ h2 {
 
 /*-------- ********** --------*/
 /*--------   LOG IN   --------*/
+/*--------   SIGN UP  --------*/
 /*-------- ********** --------*/
 .connect {
   height: 60vh;
@@ -364,8 +389,71 @@ h2 {
 }
 
 /*-------- ********** --------*/
-/*--------  SIGN  UP  --------*/
+/*--------   REVIEW   --------*/
 /*-------- ********** --------*/
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+.review-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #434448; */
+  width: 40vw;
+}
+.top-review {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 0.5vh;
+}
+.top-review span {
+  padding: 0 1vw;
+}
+.review-comment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #434448;
+  position: relative;
+}
+.review-comment span {
+  color: lightgray;
+  padding: 2vh 1vw 0.5vh 1vw;
+}
+.review-comment input,
+.review-comment textarea {
+  padding: 1vh 0.5vw;
+  margin: 0 1vw;
+  border: none;
+  border-radius: 0.5vw;
+}
+.review-comment:last-child {
+  padding-bottom: 5vh;
+}
+.review-comment input[type="submit"] {
+  background-color: #fe4555;
+  color: white;
+  border: none;
+  border-radius: 0.5vw;
+  padding: 0.5vh 1vw;
+  width: 5vw;
+  position: absolute;
+  bottom: 1vh;
+  right: 0;
+}
+.review-comment input[type="submit"]:hover,
+.exit-review:hover {
+  cursor: pointer;
+}
+.exit-review {
+}
 
 /*-------- ********** --------*/
 /******----- FOOTER -----******/
