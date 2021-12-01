@@ -10,7 +10,7 @@ const Game = ({ userId, token }) => {
   const [userData, setUserData] = useState();
   const [reviews, setReviews] = useState();
   const [changePic, setChangePic] = useState(true);
-  //   const [checkLike, setCheckLike] = useState(false);
+  const [reviewCheck, setReviewCheck] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const navigate = useNavigate();
@@ -66,7 +66,10 @@ const Game = ({ userId, token }) => {
       }
     };
     fetchReviews();
-  }, [slug, refresh, userId]);
+    if (reviews) {
+      reviewChecker(reviews);
+    }
+  }, [slug, refresh, userId, reviewCheck]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -210,19 +213,7 @@ const Game = ({ userId, token }) => {
       console.log(error.message);
     }
   };
-  //   const checkReview = async () => {
-  //     // console.log("test");
-  //     for (let i = 0; i < reviews?.length; i++) {
-  //       if (reviews[i].like.length === 0) {
-  //         return false;
-  //       } else {
-  //         if (reviews[i].like.user === userData._id) {
-  //           // console.log(reviews[i].like);
-  //           return true;
-  //         }
-  //       }
-  //     }
-  //   };
+
   const checkLike = (review) => {
     const arr = [];
     // let a = 0;
@@ -335,6 +326,32 @@ const Game = ({ userId, token }) => {
     }
   };
 
+  const reviewChecker = (reviews) => {
+    let a = 0;
+    for (let i = 0; i < reviews.length; i++) {
+      if (reviews[i].user._id === userData._id) {
+        a = 1;
+      }
+    }
+    if (a > 0) {
+      setReviewCheck(true);
+    }
+  };
+  const handleReview = (reviews) => {
+    let a = 0;
+    for (let i = 0; i < reviews.length; i++) {
+      if (reviews[i].user._id === userData._id) {
+        a = 1;
+      }
+    }
+    if (a > 0) {
+      setReviewCheck(true);
+      alert("You already reviewed this game");
+    } else {
+      navigate(`/review/${data.slug}`);
+    }
+  };
+
   return isLoading ? (
     <div>Loading...</div>
   ) : (
@@ -352,7 +369,7 @@ const Game = ({ userId, token }) => {
               }
               alt=""
             />
-            <div>
+            <div className="space-left">
               <div className="row">
                 <button onClick={() => handleCollection()}>
                   {checkFavorite() ? (
@@ -364,8 +381,12 @@ const Game = ({ userId, token }) => {
                     <div>Save to Collection</div>
                   )}
                 </button>
-                <button onClick={() => navigate(`/review/${data.slug}`)}>
-                  Review
+                <button onClick={() => handleReview(reviews)}>
+                  {reviewCheck ? (
+                    <span>Review Added</span>
+                  ) : (
+                    <span>Add a Review</span>
+                  )}
                 </button>
               </div>
               <div className="row">
@@ -447,26 +468,70 @@ const Game = ({ userId, token }) => {
         <section className="part-3">
           <h3 className="white">Reviews</h3>
           <div className="section-review">
+            {reviews.length === 0 && (
+              <div
+                style={{
+                  color: "white",
+                  fontSize: "2vw",
+                  margin: "10vh 17.5vw",
+                }}
+              >
+                No review (yet) for this game !
+              </div>
+            )}
             {reviews?.map((review) => {
+              const totalLikes = review.like.length - review.dislike.length;
               return (
                 <div key={review._id} className="reviews">
-                  <h4>{review.title}</h4>
-                  <div>{review.description}</div>
-                  <div>{review.user.username}</div>
+                  <section className="reviews-left">
+                    <h4>{review.title}</h4>
+                    <div>{review.description}</div>
+                    <div>{review.user.username}</div>
+                  </section>
+                  <section className="reviews-right">
+                    <div>
+                      <button
+                        onClick={() => handleLike(review)}
+                        className={checkLike(review) ? "like" : null}
+                      >
+                        like
+                      </button>
+                      <button
+                        onClick={() => handleDislike(review)}
+                        className={checkDislike(review) ? "dislike" : null}
+                      >
+                        dislike
+                      </button>
+                    </div>
+                    <div>
+                      {totalLikes > 0 ? (
+                        <FontAwesomeIcon
+                          className="positive"
+                          icon="thumbs-up"
+                        />
+                      ) : totalLikes === 0 ? (
+                        <FontAwesomeIcon className="neutral" icon="thumbs-up" />
+                      ) : (
+                        <FontAwesomeIcon
+                          className="negative"
+                          icon="thumbs-down"
+                        />
+                      )}
+                      {totalLikes}
+                    </div>
+                  </section>
+
                   {/* {user.image && <img src={user.image} alt="" />} */}
-                  <button
-                    onClick={() => handleLike(review)}
-                    className={checkLike(review) ? "like" : null}
-                  >
-                    like
-                  </button>
-                  <button
-                    onClick={() => handleDislike(review)}
-                    className={checkDislike(review) ? "dislike" : null}
-                  >
-                    dislike
-                  </button>
-                  <div>{review.like.length - review.dislike.length} </div>
+
+                  {/* {review.user._id === userId && (
+                    <button
+                      onClick={() =>
+                        alert("Delete option coming soon...(on progress)")
+                      }
+                    >
+                      delete
+                    </button>
+                  )} */}
                 </div>
               );
             })}

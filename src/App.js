@@ -7,6 +7,8 @@ import {
   faSearch,
   faCommentAlt,
   faUser,
+  faThumbsDown,
+  faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 // import axios from "axios";
@@ -20,7 +22,14 @@ import Review from "./containers/Review";
 import Collection from "./containers/Collection";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-library.add(faBookmark, faSearch, faCommentAlt, faUser);
+library.add(
+  faBookmark,
+  faSearch,
+  faCommentAlt,
+  faUser,
+  faThumbsDown,
+  faThumbsUp
+);
 
 function App() {
   const [userToken, setUserToken] = useState(Cookies.get("token") || null);

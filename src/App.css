@@ -228,6 +228,10 @@ h2 {
 .poster {
   display: flex;
 }
+.space-left {
+  margin-left: 1vw;
+  /* background-color: pink; */
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -278,10 +282,13 @@ h2 {
 .red {
   color: red;
 }
+.part-3 > h3 {
+  margin-left: 38vw;
+}
 .section-review {
   width: 60vw;
   margin: 0 auto;
-  background-color: pink;
+  /* background-color: pink; */
   margin-left: 10vw;
 }
 .reviews {
@@ -289,6 +296,14 @@ h2 {
   height: 20vh;
   background-color: #2a2b2e;
   color: white;
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: space-between;
+}
+.reviews-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .reviews h4 {
   text-decoration: underline;
@@ -301,6 +316,21 @@ h2 {
 .dislike {
   color: white;
   background-color: red;
+}
+.positive {
+  color: green;
+}
+.neutral {
+  color: gray;
+}
+.negative {
+  color: red;
+}
+.negative,
+.neutral,
+.positive {
+  font-size: 1.5vw;
+  margin-right: 1vw;
 }
 /*-------- ********** --------*/
 /*-------- COLLECTION --------*/

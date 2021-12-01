@@ -49,6 +49,9 @@ const Review = ({ token }) => {
         }
       );
       console.log(response.data);
+      if (response.data) {
+        navigate(-1);
+      }
     } catch (error) {
       console.log(error.message);
     }
