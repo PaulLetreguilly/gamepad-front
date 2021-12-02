@@ -335,6 +335,7 @@ const Game = ({ userId, token }) => {
     }
     if (a > 0) {
       setReviewCheck(true);
+      return true;
     }
   };
   const handleReview = (reviews) => {
@@ -468,7 +469,7 @@ const Game = ({ userId, token }) => {
         <section className="part-3">
           <h3 className="white">Reviews</h3>
           <div className="section-review">
-            {reviews.length === 0 && (
+            {reviews?.length === 0 && (
               <div
                 style={{
                   color: "white",
@@ -486,7 +487,16 @@ const Game = ({ userId, token }) => {
                   <section className="reviews-left">
                     <h4>{review.title}</h4>
                     <div>{review.description}</div>
-                    <div>{review.user.username}</div>
+                    <div>
+                      {review.user.image && (
+                        <img
+                          src={review.user.image?.secure_url}
+                          alt=""
+                          className="user-pic"
+                        />
+                      )}
+                      {review.user.username}
+                    </div>
                   </section>
                   <section className="reviews-right">
                     <div>

@@ -25,7 +25,12 @@ const Login = ({ setConnected, token }) => {
         });
         console.log(response.data);
         // prendre l'id et le token et l'envoyer à setConnected
-        setConnected(response.data.token, response.data._id);
+        setConnected(
+          response.data.token,
+          response.data._id,
+          response.data.image.secure_url,
+          response.data.username
+        );
       } catch (error) {
         console.log(error.message);
       }

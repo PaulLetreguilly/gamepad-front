@@ -62,7 +62,8 @@ const Collection = ({ userId, token }) => {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <section className="container">
+    <section className="container collection">
+      <button onClick={() => navigate(-1)}>Go back</button>
       <div className="favorites">
         {data.Collection.map((elem) => {
           return (

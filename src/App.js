@@ -34,24 +34,42 @@ library.add(
 function App() {
   const [userToken, setUserToken] = useState(Cookies.get("token") || null);
   const [userId, setUserId] = useState(Cookies.get("userId") || null);
+  const [userImage, setUserImage] = useState(Cookies.get("userImage") || null);
+  const [username, setUsername] = useState(Cookies.get("username") || null);
 
-  const setConnected = (token, userId) => {
+  const setConnected = (token, userId, userImage, username) => {
     if (token && userId) {
       setUserToken(token);
       Cookies.set("token", token);
       setUserId(userId);
       Cookies.set("userId", userId);
+      setUserImage(username);
+      Cookies.set("username", username);
     } else {
       setUserToken(null);
       setUserId(null);
       Cookies.remove("token");
       Cookies.remove("userId");
+      setUserImage(null);
+      Cookies.remove("username");
+    }
+    if (token && userImage) {
+      setUserImage(userImage);
+      Cookies.set("userImage", userImage);
+    } else {
+      setUserImage(null);
+      Cookies.remove("userImage");
     }
   };
 
   return (
     <Router>
-      <Header setConnected={setConnected} userToken={userToken} />
+      <Header
+        setConnected={setConnected}
+        userToken={userToken}
+        // userImage={userImage}
+        // username={username}
+      />
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route

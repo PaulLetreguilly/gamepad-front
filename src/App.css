@@ -32,12 +32,62 @@ header div img {
   text-align: center;
   border-radius: 1vw;
   padding: 0.2vw 1vw;
+  display: none;
+  position: absolute;
+  top: 14vh;
+  left: 2.5vw;
 }
 .log-out:hover {
   opacity: 0.9;
   cursor: pointer;
+  display: inherit !important;
 }
-
+.user {
+  position: relative;
+  /* background-color: pink; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7vw;
+}
+.user:hover {
+  cursor: pointer;
+}
+.user-block {
+  /* background-color: teal; */
+  width: 10vw;
+  height: 15vh;
+  position: absolute;
+  top: 5vh;
+  left: 0;
+}
+.user:hover .log-out,
+.user:hover .profile {
+  display: inherit;
+}
+.right-header .user .user-image {
+  width: 1.5vw;
+  height: 1.5vw;
+  /* object-fit: cover; */
+  margin: 0 0.5vw;
+}
+.profile {
+  font-size: 1vw;
+  width: 4.5vw;
+  background-color: gray;
+  padding: 0.2vw 1vw;
+  border: none;
+  border-radius: 1vw;
+  color: white;
+  display: none;
+  position: absolute;
+  top: 7vh;
+  left: 1.5vw;
+}
+.profile:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
 /*-------- ********** --------*/
 /*--------- HOMEPAGE ---------*/
 /*-------- ********** --------*/
@@ -293,7 +343,7 @@ h2 {
 }
 .reviews {
   margin: 1vh 0;
-  height: 20vh;
+  /* height: 20vh; */
   background-color: #2a2b2e;
   color: white;
   display: flex;
@@ -332,10 +382,17 @@ h2 {
   font-size: 1.5vw;
   margin-right: 1vw;
 }
+.user-pic {
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+}
 /*-------- ********** --------*/
 /*-------- COLLECTION --------*/
 /*-------- ********** --------*/
-
+.collection {
+  height: 60vh;
+}
 .favorites {
   display: flex;
 }
@@ -401,10 +458,18 @@ h2 {
   justify-content: center;
   background-color: #333436;
 }
-.right-part input {
-  width: 15vw;
-  margin: 2vh 0;
+.right-part > input {
+  width: 20vw;
+  margin: 1vh 0;
   padding: 1vh 0.5vw;
+}
+.right-part > div > input {
+  width: 9.2vw;
+  margin: 1vh 0;
+  padding: 1vh 0.5vw;
+}
+.right-part > div > input:last-child {
+  margin-left: 0.5vw;
 }
 .right-part input[type="submit"] {
   background-color: red;

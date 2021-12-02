@@ -9,7 +9,7 @@ const Signup = ({ setConnected, token }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [file, setFile] = useState({});
+  const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -21,13 +21,11 @@ const Signup = ({ setConnected, token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const formData = new FormData(); // To be continued...
-    // formData.append("files", file);
-    // formData.append("email", email);
-    // formData.append("username", username);
-    // formData.append("password", password);
-    // formData.append("upload_preset", "v4krhqpn");
-    // console.log("test log :", formData);
+    const formData = new FormData();
+    formData.append("files", file);
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
 
     try {
       if (email && username && password && confirmPassword) {
@@ -35,27 +33,25 @@ const Signup = ({ setConnected, token }) => {
           console.log("first test");
           const response = await axios.post(
             "http://localhost:4000/signup",
-            // formData,
+            formData,
             {
-              email,
-              username,
-              password,
-              //formData, // To be continued....
+              onUploadProgress: (ProgressEvent) =>
+                console.log(
+                  "Upload progress : " +
+                    Math.round(
+                      (ProgressEvent.loaded / ProgressEvent.total) * 100
+                    ) +
+                    "%"
+                ),
             }
-            // {
-            //   onUploadProgress: (ProgressEvent) =>
-            //     console.log(
-            //       "Upload progress : " +
-            //         Math.round(
-            //           (ProgressEvent.loaded / ProgressEvent.total) * 100
-            //         ) +
-            //         "%"
-            //     ),
-            // }
           );
           console.log(response.data);
-          setConnected(response.data.token, response.data._id);
-          // prendre l'id et le token et l'envoyer à setConnected
+          setConnected(
+            response.data.token,
+            response.data._id,
+            response.data.image.secure_url,
+            response.data.username
+          );
         } else {
           alert("Veuillez rentrer deux fois le même mot de passe");
         }
@@ -90,7 +86,6 @@ const Signup = ({ setConnected, token }) => {
         <form
           className="right-part"
           onSubmit={(e) => {
-            // console.log("AH");
             handleSubmit(e);
           }}
         >
@@ -120,8 +115,12 @@ const Signup = ({ setConnected, token }) => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            {/* <input type="file" onChange={(e) => setFile(e.target.files[0])} /> */}
           </div>
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            // value={file}
+          />
           <input type="submit" value="S'inscrire" />
           <Link to="/login">
             <span>Already have an account?</span>
