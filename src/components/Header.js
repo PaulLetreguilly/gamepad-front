@@ -1,10 +1,11 @@
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pic from "../assets/logo.png";
 
 const Header = ({ setConnected, userToken }) => {
   // console.log("username", username);
   // console.log("userImage", userImage);
+  const navigate = useNavigate();
   return (
     <header>
       <div className="left-header">
@@ -27,7 +28,9 @@ const Header = ({ setConnected, userToken }) => {
             >
               Logout
             </div>
-            <div className="profile">My profile</div>
+            <div className="profile" onClick={() => navigate("/user/profile")}>
+              My profile
+            </div>
           </div>
         ) : (
           <Link to="/login">

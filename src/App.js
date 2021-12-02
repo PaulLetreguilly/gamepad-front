@@ -20,6 +20,7 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Review from "./containers/Review";
 import Collection from "./containers/Collection";
+import Profile from "./containers/Profile";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 library.add(
@@ -43,13 +44,16 @@ function App() {
       Cookies.set("token", token);
       setUserId(userId);
       Cookies.set("userId", userId);
-      setUserImage(username);
-      Cookies.set("username", username);
     } else {
       setUserToken(null);
       setUserId(null);
       Cookies.remove("token");
       Cookies.remove("userId");
+    }
+    if (token && username) {
+      setUserImage(username);
+      Cookies.set("username", username);
+    } else {
       setUserImage(null);
       Cookies.remove("username");
     }
@@ -89,6 +93,16 @@ function App() {
           element={<Collection userId={userId} token={userToken} />}
         />
         <Route path={"/review/:slug"} element={<Review token={userToken} />} />
+        <Route
+          path={"/user/profile"}
+          element={
+            <Profile
+              token={userToken}
+              userId={userId}
+              setConnected={setConnected}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </Router>

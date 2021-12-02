@@ -59,7 +59,7 @@ const Game = ({ userId, token }) => {
         const reviews = await axios.post(`http://localhost:4000/game/reviews`, {
           slug,
         });
-        console.log(reviews.data);
+        // console.log(reviews.data);
         setReviews(reviews.data);
       } catch (error) {
         console.log(error.message);
@@ -93,7 +93,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(response.data);
+          //   console.log(response.data);
           setRefresh(!refresh);
         } else {
           const collection = await axios.post(
@@ -352,6 +352,19 @@ const Game = ({ userId, token }) => {
       navigate(`/review/${data.slug}`);
     }
   };
+  const testReview = (rev) => {
+    let a = 0;
+    for (let i = 0; i < rev?.length; i++) {
+      if (rev[i].user._id === userData._id) {
+        a = 1;
+      }
+    }
+    if (a > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return isLoading ? (
     <div>Loading...</div>
@@ -364,9 +377,11 @@ const Game = ({ userId, token }) => {
             <img
               className="game-pic"
               src={
-                changePic
-                  ? data.background_image
-                  : data.background_image_additional
+                data.background_image_additional
+                  ? changePic
+                    ? data.background_image
+                    : data.background_image_additional
+                  : data.background_image
               }
               alt=""
             />
@@ -383,8 +398,10 @@ const Game = ({ userId, token }) => {
                   )}
                 </button>
                 <button onClick={() => handleReview(reviews)}>
-                  {reviewCheck ? (
-                    <span>Review Added</span>
+                  {testReview(reviews) ? (
+                    <span>
+                      Review <span style={{ color: "red" }}>Added</span>
+                    </span>
                   ) : (
                     <span>Add a Review</span>
                   )}

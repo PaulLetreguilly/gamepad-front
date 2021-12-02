@@ -7,37 +7,22 @@ import pic from "../assets/logo.png";
 const Home = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
-  //   const [isOpen, setIsOpen] = useState(false);
-  const [valuePlat, setValuePlat] = useState(null);
-  const [valueGenre, setValueGenre] = useState(null);
-  const [value, setValue] = useState(null);
-  const [startFilters, setStartFilters] = useState(false);
-
-  const [platformList, setPlatformList] = useState();
-  const [genreList, setGenreList] = useState();
+  const [search, setSearch] = useState(""); // search bar input
+  const [page, setPage] = useState(1); // pagination at the bottom
+  const [limit, setLimit] = useState(20); // number of games loaded in the page, can change => next to pagination (button load more)
+  const [valuePlat, setValuePlat] = useState(null); // platform filter
+  const [valueGenre, setValueGenre] = useState(null); //game genre filter
+  const [value, setValue] = useState(null); // sorting filter
+  const [startFilters, setStartFilters] = useState(false); // button that starts filters
+  const [platformList, setPlatformList] = useState(); // get the platform list for filter
+  const [genreList, setGenreList] = useState(); // get the genre list for filter
 
   const filter = {
+    // sorting filter array
     results: [{ name: "name" }, { name: "released" }, { name: "rating" }],
   };
 
   const navigate = useNavigate();
-
-  //   useEffect(() => {
-  //     const fetchFilters = async () => {
-  //       const platforms = await axios.get(
-  //         "https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51"
-  //       );
-  //       setPlatformList(platforms.data);
-  //       const genres = await axios.get(
-  //         "https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d"
-  //       );
-  //       setGenreList(genres.data);
-  //     };
-  //     fetchFilters();
-  //   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +49,6 @@ const Home = () => {
         const response = await axios.get("http://localhost:4000/games", {
           params: body,
         });
-        // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -94,7 +78,7 @@ const Home = () => {
         <img
           src={pic}
           alt=""
-          style={{ width: "20vw", height: "10vh", objectFit: "cover" }}
+          style={{ width: "20vw", height: "14vh", objectFit: "contain" }}
         />
         <input
           type="text"
@@ -163,24 +147,19 @@ const Home = () => {
           <button onClick={() => setLimit(limit + 10)}>Load more</button>
         )}
       </div>
-      {data.results.map((e, i) => {
-        return i + 1 >= page - 2 && i + 1 <= page + 2 ? (
-          <button
-            className={page === i + 1 ? "page" : null}
-            key={i}
-            onClick={() => setPage(i + 1)}
-          >
-            <span>{i + 1}</span>
-          </button>
-        ) : null;
-      })}
-      {/* <div className="filter">
-        <button
-          className="filter_button"
-          onClick={() => setIsOpen(!isOpen)}
-        ></button>
-        {isOpen && <div ref="dropdownref" className="filter_dropdown"></div>}
-      </div> */}
+      <div className="pagination">
+        {data.results.map((e, i) => {
+          return i + 1 >= page - 2 && i + 1 <= page + 2 ? (
+            <button
+              className={page === i + 1 ? "page" : "pages"}
+              key={i}
+              onClick={() => setPage(i + 1)}
+            >
+              <span>{i + 1}</span>
+            </button>
+          ) : null;
+        })}
+      </div>
     </section>
   );
 };

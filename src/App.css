@@ -1,5 +1,7 @@
 /* Other rules */
-
+body {
+  margin: 0 auto;
+}
 /*-------- ********** --------*/
 /*********** HEADER ***********/
 /*-------- ********** --------*/
@@ -16,8 +18,8 @@ header {
 }
 header div img {
   width: 10vw;
-  height: 5vh;
-  object-fit: cover;
+  height: 7vh;
+  object-fit: contain;
 }
 .right-header {
   display: flex;
@@ -94,15 +96,13 @@ header div img {
 
 .container {
   width: 100vw;
-  /* height: 100vh; */
-  /* display: flex; */
   background-color: #1f2023;
   padding: 10vh 0;
+  /* margin: 0 auto; */
 }
 .contain {
   width: 80vw;
   margin-left: 10vw;
-  /* background-color: thistle; */
 }
 
 /* search part */
@@ -143,6 +143,7 @@ header div img {
   width: 20vw;
   position: relative;
   color: #333;
+  /* color: pink; */
   cursor: default;
 }
 
@@ -212,9 +213,7 @@ header div img {
   background-color: #f2f9fc;
   color: #333;
 }
-/* .dropdown .selected {
-    background-color: red;
-  } */
+
 /* ---------------- */
 
 /* ---------- */
@@ -236,7 +235,10 @@ h1 {
   position: relative;
   margin: 0.5vw 1vw;
 }
-
+.game:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
 .game-img {
   width: 100%;
   height: 100%;
@@ -250,10 +252,44 @@ h2 {
   left: 0;
   color: white;
 }
+.load-more,
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5vh 0 0 0;
+}
+.load-more > button {
+  border: none;
+  background-color: #2d2d2d;
+  color: white;
+  padding: 2vh 2vw;
+  font-size: 1.8vw;
+}
+.load-more > button:hover {
+  cursor: pointer;
+  color: black;
+  background-color: white;
+}
+.page,
+.pages {
+  font-size: 2vw;
+  margin: 0 0.2vw;
+}
+.pages {
+  background-color: #1f2023;
+  color: white;
+  border: none;
+}
+.pages:hover {
+  cursor: pointer;
+}
 
 .page {
-  /* color: white; */
-  background-color: red;
+  color: white;
+  background-color: #fe4555;
+  border: none;
+  border-radius: 1vh;
 }
 
 /*-------- ********** --------*/
@@ -549,6 +585,23 @@ h2 {
 }
 .exit-review {
 }
+/*-------- ********** --------*/
+/******----  PROFILE ----******/
+/*-------- ********** --------*/
+.profile-page {
+  height: 60vh;
+}
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  background-color: teal;
+}
+.profile-page input[type="submit"]:hover,
+.profile-page input[type="file"]:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
 
 /*-------- ********** --------*/
 /******----- FOOTER -----******/
@@ -566,5 +619,5 @@ footer {
 }
 footer a {
   text-decoration: none;
-  color: gold;
+  color: #fe4555;
 }
