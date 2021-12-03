@@ -146,7 +146,7 @@ const Game = ({ userId, token }) => {
         }
       }
       if (likes.length > 0) {
-        console.log("unlike");
+        // console.log("unlike");
         // console.log(review._id);
         const unlike = await axios.post(
           "http://localhost:4000/review/unlike",
@@ -164,7 +164,7 @@ const Game = ({ userId, token }) => {
         setRefresh(!refresh);
       } else {
         if (dislikes.length > 0) {
-          console.log("like-1");
+          //   console.log("like-1");
           const undislike = await axios.post(
             "http://localhost:4000/review/undislike",
             {
@@ -177,7 +177,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(undislike.data);
+          //   console.log(undislike.data);
 
           const like = await axios.post(
             "http://localhost:4000/review/like",
@@ -193,7 +193,7 @@ const Game = ({ userId, token }) => {
           // console.log(like.data);
           setRefresh(!refresh);
         } else {
-          console.log("like-2");
+          //   console.log("like-2");
           const like = await axios.post(
             "http://localhost:4000/review/like",
             {
@@ -259,7 +259,7 @@ const Game = ({ userId, token }) => {
         }
       }
       if (dislikes.length > 0) {
-        console.log("undislike-1");
+        // console.log("undislike-1");
         const undislike = await axios.post(
           "http://localhost:4000/review/undislike",
           {
@@ -272,10 +272,10 @@ const Game = ({ userId, token }) => {
             },
           }
         );
-        console.log(undislike.data);
+        // console.log(undislike.data);
         setRefresh(!refresh);
       } else {
-        console.log("dislike-2");
+        // console.log("dislike-2");
         if (likes.length > 0) {
           const unlike = await axios.post(
             "http://localhost:4000/review/unlike",
@@ -289,7 +289,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(unlike.data);
+          //   console.log(unlike.data);
           // setRefresh(!refresh);
 
           const dislike = await axios.post(
@@ -303,7 +303,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(dislike.data);
+          //   console.log(dislike.data);
           setRefresh(!refresh);
         } else {
           const dislike = await axios.post(
@@ -317,7 +317,7 @@ const Game = ({ userId, token }) => {
               },
             }
           );
-          console.log(dislike.data);
+          //   console.log(dislike.data);
           setRefresh(!refresh);
         }
       }
@@ -387,23 +387,43 @@ const Game = ({ userId, token }) => {
             />
             <div className="space-left">
               <div className="row">
-                <button onClick={() => handleCollection()}>
+                <button
+                  onClick={() => handleCollection()}
+                  className="btn-collection"
+                >
                   {checkFavorite() ? (
                     <div>
                       Saved to{" "}
-                      <span style={{ color: "green" }}>Collection</span>
+                      <span style={{ color: "#74D963" }}>Collection </span>{" "}
+                      <FontAwesomeIcon icon="bookmark" className="btn-icon" />
                     </div>
                   ) : (
-                    <div>Save to Collection</div>
+                    <div>
+                      Save to Collection{" "}
+                      <FontAwesomeIcon icon="bookmark" className="btn-icon" />
+                    </div>
                   )}
                 </button>
-                <button onClick={() => handleReview(reviews)}>
+                <button
+                  onClick={() => handleReview(reviews)}
+                  className="btn-review"
+                >
                   {testReview(reviews) ? (
                     <span>
-                      Review <span style={{ color: "red" }}>Added</span>
+                      Review <span style={{ color: "#fe4555" }}>Added</span>{" "}
+                      <FontAwesomeIcon
+                        icon="comment-alt"
+                        className="btn-icon"
+                      />
                     </span>
                   ) : (
-                    <span>Add a Review</span>
+                    <span>
+                      Add a Review{" "}
+                      <FontAwesomeIcon
+                        icon="comment-alt"
+                        className="btn-icon"
+                      />
+                    </span>
                   )}
                 </button>
               </div>
@@ -467,6 +487,21 @@ const Game = ({ userId, token }) => {
         <section className="part-2">
           <h3 className="white">Games like {data.name}</h3>
           <div className="series">
+            {related?.results.length === 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  // backgroundColor: "pink",
+                  width: "95%",
+                  fontSize: "2rem",
+                  margin: "2rem 0",
+                }}
+              >
+                <div className="white">No related games found</div>
+              </div>
+            )}
             {related?.results.map((e, i) => {
               return (
                 i < 5 && (
@@ -503,7 +538,7 @@ const Game = ({ userId, token }) => {
                 <div key={review._id} className="reviews">
                   <section className="reviews-left">
                     <h4>{review.title}</h4>
-                    <div>{review.description}</div>
+                    <p>{review.description}</p>
                     <div>
                       {review.user.image && (
                         <img
@@ -519,13 +554,17 @@ const Game = ({ userId, token }) => {
                     <div>
                       <button
                         onClick={() => handleLike(review)}
-                        className={checkLike(review) ? "like" : null}
+                        className={`btn-like ${
+                          checkLike(review) ? "like" : null
+                        }`}
                       >
                         like
                       </button>
                       <button
                         onClick={() => handleDislike(review)}
-                        className={checkDislike(review) ? "dislike" : null}
+                        className={`btn-dislike ${
+                          checkDislike(review) ? "dislike" : null
+                        }`}
                       >
                         dislike
                       </button>

@@ -32,7 +32,7 @@ const Profile = ({ token, userId, setConnected }) => {
       };
       fetchData();
     }
-  }, []);
+  }, [token]);
 
   const handleSubmit = async (e) => {
     try {
@@ -73,7 +73,7 @@ const Profile = ({ token, userId, setConnected }) => {
           },
         }
       );
-      console.log(update.data);
+      //   console.log(update.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -86,26 +86,53 @@ const Profile = ({ token, userId, setConnected }) => {
       <section className="contain connect">
         <div className="left-part">
           <div>display userData (coming soon...)</div>
+          <div>
+            <span className="red">username : </span>
+            {data.username}
+          </div>
+          <div>
+            <span className="red">email : </span>
+            {data.email}
+          </div>
+          {/* <div>{data.username}</div> */}
+          {/* <div></div> */}
+          {data.image && (
+            <img
+              src={data.image.secure_url}
+              alt="user-image"
+              style={{
+                width: "10vw",
+                height: "10vw",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          )}
+          <button onClick={() => navigate(-1)}>Go back</button>
         </div>
         <form onSubmit={(e) => handleSubmit(e)} className="right-part">
           <h3>update data</h3>
           <input
             type="text"
+            value={username}
             placeholder={data.username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="email"
+            value={email}
             placeholder={data.email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
+            value={password}
             placeholder="new password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
             type="password"
+            value={confirmPassword}
             placeholder="confirm password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />

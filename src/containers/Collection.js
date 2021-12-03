@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Collection = ({ userId, token }) => {
@@ -68,7 +69,10 @@ const Collection = ({ userId, token }) => {
         {data.Collection.map((elem) => {
           return (
             <div className="favorite" key={elem._id}>
-              <span>{elem.game.name}</span>
+              {/* <Link to={`/game/${elem.game.slug}`}>go to {elem.game.name}</Link> */}
+              <span onClick={() => navigate(`/game/${elem.game.slug}`)}>
+                {elem.game.name}
+              </span>
               <img src={elem.game.background_image} alt="" />
               <FontAwesomeIcon
                 icon="bookmark"

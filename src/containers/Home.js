@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown";
+import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
   const [startFilters, setStartFilters] = useState(false); // button that starts filters
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter
+  const [check, setCheck] = useState(false); // switch component state
 
   const filter = {
     // sorting filter array
@@ -38,7 +40,11 @@ const Home = () => {
           body.page_size = limit;
         }
         if (value) {
-          body.sort = value.name;
+          if (!check) {
+            body.sort = value.name;
+          } else {
+            body.sort = "-" + value.name;
+          }
         }
         if (valuePlat) {
           body.platform = valuePlat.id;
@@ -92,30 +98,68 @@ const Home = () => {
       {search ? (
         <div className="filter-menu">
           <div className="left-menu">
-            <Dropdown
+            <div style={{ width: "16vw", marginRight: "0.5vw" }}>
+              <Dropdown
+                type={"Plateform"}
+                prompt={"All"}
+                value={valuePlat}
+                option={platformList}
+                onChange={(val) => setValuePlat(val)}
+              />
+            </div>
+            {/* <Dropdown
               type={"Plateform"}
               prompt={"All"}
               value={valuePlat}
               option={platformList}
               onChange={(val) => setValuePlat(val)}
-            />
-            <Dropdown
+            /> */}
+            <div style={{ width: "14vw" }}>
+              <Dropdown
+                type={"Type"}
+                prompt={"All"}
+                value={valueGenre}
+                option={genreList}
+                onChange={(val) => setValueGenre(val)}
+              />
+            </div>
+            {/* <Dropdown
               type={"Type"}
               prompt={"All"}
               value={valueGenre}
               option={genreList}
               onChange={(val) => setValueGenre(val)}
-            />
+            /> */}
           </div>
           <div className="right-menu">
-            <Dropdown
+            <div style={{ display: "flex" }}>
+              {!check ? (
+                <span className="white">Croissant</span>
+              ) : (
+                <span className="white">Décroissant</span>
+              )}
+              <div style={{ margin: "0 2rem" }}>
+                <Switch check={check} setCheck={setCheck} />
+              </div>
+            </div>
+            <div style={{ width: "10vw", marginRight: "0.5vw" }}>
+              <Dropdown
+                type={"Sort by"}
+                prompt={"Default"}
+                value={value}
+                option={filter}
+                onChange={(val) => setValue(val)}
+              />
+            </div>
+            {/* <Dropdown
               type={"Sort by"}
               prompt={"Default"}
               value={value}
               option={filter}
               onChange={(val) => setValue(val)}
-            />
+            /> */}
             <button
+              className="btn-filters"
               onClick={() => {
                 setStartFilters(!startFilters);
               }}
