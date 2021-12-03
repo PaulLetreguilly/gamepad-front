@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Collection = ({ userId, token }) => {
+const Collection = ({ userId, token, url }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
@@ -19,7 +19,7 @@ const Collection = ({ userId, token }) => {
         try {
           // console.log("my token : ", token);
           const response = await axios.get(
-            "http://localhost:4000/get/favorite",
+            `${url}/get/favorite`,
             // {
             //   params: { _id: userId },
             // },
@@ -45,7 +45,7 @@ const Collection = ({ userId, token }) => {
     // console.log(elem);
     try {
       const deleteThis = await axios.post(
-        "http://localhost:4000/delete/favorite",
+        `${url}/delete/favorite`,
         { game: elem },
         {
           headers: {

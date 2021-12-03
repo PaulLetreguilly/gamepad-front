@@ -5,7 +5,7 @@ import Dropdown from "../components/Dropdown";
 import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 
-const Home = () => {
+const Home = ({ url }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState(""); // search bar input
@@ -52,7 +52,7 @@ const Home = () => {
         if (valueGenre) {
           body.type = valueGenre.slug;
         }
-        const response = await axios.get("http://localhost:4000/games", {
+        const response = await axios.get(`${url}/games`, {
           params: body,
         });
         setData(response.data);
@@ -65,11 +65,11 @@ const Home = () => {
     fetchData();
     const fetchFilters = async () => {
       const platforms = await axios.get(
-        "https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51"
+        `https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51`
       );
       setPlatformList(platforms.data);
       const genres = await axios.get(
-        "https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d"
+        `https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d`
       );
       setGenreList(genres.data);
     };

@@ -11,7 +11,6 @@ import {
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 
-// import axios from "axios";
 import Cookies from "js-cookie";
 
 import Home from "./containers/Home";
@@ -38,6 +37,10 @@ function App() {
   const [userImage, setUserImage] = useState(Cookies.get("userImage") || null);
   const [username, setUsername] = useState(Cookies.get("username") || null);
 
+  // const url = "http://localhost:4000";
+  const url = "https://my-gamepad.herokuapp.com";
+  // use this const to switch from local to online server once deployed on heroku
+
   const setConnected = (token, userId, userImage, username) => {
     if (token && userId) {
       setUserToken(token);
@@ -51,10 +54,10 @@ function App() {
       Cookies.remove("userId");
     }
     if (token && username) {
-      setUserImage(username);
+      setUsername(username);
       Cookies.set("username", username);
     } else {
-      setUserImage(null);
+      setUsername(null);
       Cookies.remove("username");
     }
     if (token && userImage) {
@@ -75,28 +78,36 @@ function App() {
         // username={username}
       />
       <Routes>
-        <Route path={"/"} element={<Home />} />
+        <Route path={"/"} element={<Home url={url} />} />
         <Route
           path={"/game/:slug"}
-          element={<Game userId={userId} token={userToken} />}
+          element={<Game userId={userId} token={userToken} url={url} />}
         />
         <Route
           path={"/login"}
-          element={<Login setConnected={setConnected} token={userToken} />}
+          element={
+            <Login setConnected={setConnected} token={userToken} url={url} />
+          }
         />
         <Route
           path={"/signup"}
-          element={<Signup setConnected={setConnected} token={userToken} />}
+          element={
+            <Signup setConnected={setConnected} token={userToken} url={url} />
+          }
         />
         <Route
           path={"/collection"}
-          element={<Collection userId={userId} token={userToken} />}
+          element={<Collection userId={userId} token={userToken} url={url} />}
         />
-        <Route path={"/review/:slug"} element={<Review token={userToken} />} />
+        <Route
+          path={"/review/:slug"}
+          element={<Review token={userToken} url={url} />}
+        />
         <Route
           path={"/user/profile"}
           element={
             <Profile
+              url={url}
               token={userToken}
               userId={userId}
               setConnected={setConnected}

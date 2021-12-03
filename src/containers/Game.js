@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Game = ({ userId, token }) => {
+const Game = ({ userId, token, url }) => {
   const [data, setData] = useState();
   const [related, setRelated] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ const Game = ({ userId, token }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/game/${slug}`);
+        const response = await axios.get(`${url}/game/${slug}`);
         // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
@@ -31,9 +31,7 @@ const Game = ({ userId, token }) => {
     fetchData();
     const fetchRelatedGames = async () => {
       try {
-        const series = await axios.get(
-          `http://localhost:4000/game/series/${slug}`
-        );
+        const series = await axios.get(`${url}/game/series/${slug}`);
         // console.log("related series ===> ", series.data);
         setRelated(series.data);
       } catch (error) {
@@ -43,7 +41,7 @@ const Game = ({ userId, token }) => {
     fetchRelatedGames();
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/user", {
+        const response = await axios.get(`${url}/user`, {
           params: { id: userId },
         });
         setUserData(response.data);
@@ -56,7 +54,7 @@ const Game = ({ userId, token }) => {
 
     const fetchReviews = async () => {
       try {
-        const reviews = await axios.post(`http://localhost:4000/game/reviews`, {
+        const reviews = await axios.post(`${url}/game/reviews`, {
           slug,
         });
         // console.log(reviews.data);
@@ -83,7 +81,7 @@ const Game = ({ userId, token }) => {
         if (checkFavorite()) {
           //   console.log(data);
           const response = await axios.post(
-            "http://localhost:4000/delete/favorite",
+            `${url}/delete/favorite`,
             {
               game: data,
             },
@@ -97,7 +95,7 @@ const Game = ({ userId, token }) => {
           setRefresh(!refresh);
         } else {
           const collection = await axios.post(
-            "http://localhost:4000/create/favorite",
+            `${url}/create/favorite`,
             {
               game: data,
             },
@@ -149,7 +147,7 @@ const Game = ({ userId, token }) => {
         // console.log("unlike");
         // console.log(review._id);
         const unlike = await axios.post(
-          "http://localhost:4000/review/unlike",
+          `${url}/review/unlike`,
           {
             id: review._id,
             user: userData.email,
@@ -166,7 +164,7 @@ const Game = ({ userId, token }) => {
         if (dislikes.length > 0) {
           //   console.log("like-1");
           const undislike = await axios.post(
-            "http://localhost:4000/review/undislike",
+            `${url}/review/undislike`,
             {
               id: review._id,
               user: userData.email,
@@ -180,7 +178,7 @@ const Game = ({ userId, token }) => {
           //   console.log(undislike.data);
 
           const like = await axios.post(
-            "http://localhost:4000/review/like",
+            `${url}/review/like`,
             {
               id: review._id,
             },
@@ -195,7 +193,7 @@ const Game = ({ userId, token }) => {
         } else {
           //   console.log("like-2");
           const like = await axios.post(
-            "http://localhost:4000/review/like",
+            `${url}/review/like`,
             {
               id: review._id,
             },

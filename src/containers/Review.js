@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
-const Review = ({ token }) => {
+const Review = ({ token, url }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("");
@@ -18,9 +18,7 @@ const Review = ({ token }) => {
     } else {
       const fetchGame = async () => {
         try {
-          const response = await axios.get(
-            `http://localhost:4000/game/${slug}`
-          );
+          const response = await axios.get(`${url}/game/${slug}`);
           console.log(response.data);
           setData(response.data);
           setIsLoading(false);
@@ -36,7 +34,7 @@ const Review = ({ token }) => {
     try {
       e.preventDefault();
       const response = await axios.post(
-        "http://localhost:4000/create/review",
+        `${url}/create/review`,
         {
           title,
           text,

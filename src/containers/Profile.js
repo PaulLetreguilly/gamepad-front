@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 
-const Profile = ({ token, userId, setConnected }) => {
+const Profile = ({ token, userId, setConnected, url }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
@@ -20,7 +20,7 @@ const Profile = ({ token, userId, setConnected }) => {
     } else {
       const fetchData = async () => {
         try {
-          const user = await axios.get("http://localhost:4000/user", {
+          const user = await axios.get(`${url}/user`, {
             params: { id: userId },
           });
           console.log(user.data);
@@ -64,15 +64,11 @@ const Profile = ({ token, userId, setConnected }) => {
         setConnected(token, userId, null, Cookies.get("username"));
       }
 
-      const update = await axios.post(
-        "http://localhost:4000/user/update",
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      const update = await axios.post(`${url}/user/update`, formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
       //   console.log(update.data);
     } catch (error) {
       console.log(error.message);

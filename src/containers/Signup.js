@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import miniLogo from "../assets/logo-favicon.png";
 
-const Signup = ({ setConnected, token }) => {
+const Signup = ({ setConnected, token, url }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,20 +32,16 @@ const Signup = ({ setConnected, token }) => {
       if (email && username && password && confirmPassword) {
         if (confirmPassword === password) {
           console.log("first test");
-          const response = await axios.post(
-            "http://localhost:4000/signup",
-            formData,
-            {
-              onUploadProgress: (ProgressEvent) =>
-                console.log(
-                  "Upload progress : " +
-                    Math.round(
-                      (ProgressEvent.loaded / ProgressEvent.total) * 100
-                    ) +
-                    "%"
-                ),
-            }
-          );
+          const response = await axios.post(`${url}/signup`, formData, {
+            onUploadProgress: (ProgressEvent) =>
+              console.log(
+                "Upload progress : " +
+                  Math.round(
+                    (ProgressEvent.loaded / ProgressEvent.total) * 100
+                  ) +
+                  "%"
+              ),
+          });
           console.log(response.data);
           setConnected(
             response.data.token,
@@ -68,6 +65,7 @@ const Signup = ({ setConnected, token }) => {
     <section className="container">
       <section className="contain connect">
         <div className="left-part">
+          <img src={miniLogo} alt="logo" className="mini-logo" />
           <h3>How does it work?</h3>
           <div className="text">
             <FontAwesomeIcon icon="user" className="connect-icon" />
@@ -117,10 +115,17 @@ const Signup = ({ setConnected, token }) => {
             />
           </div>
           <input
+            // disabled="false"
             type="file"
+            name="file"
+            id="file"
+            class="inputfile"
             onChange={(e) => setFile(e.target.files[0])}
             // value={file}
           />
+          {/* <label className="label-file" for="file">
+            Choose a file
+          </label> */}
           <input type="submit" value="S'inscrire" />
           <Link to="/login">
             <span>Already have an account?</span>

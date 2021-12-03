@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import miniLogo from "../assets/logo-favicon.png";
 
-const Login = ({ setConnected, token }) => {
+const Login = ({ setConnected, token, url }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +20,7 @@ const Login = ({ setConnected, token }) => {
     e.preventDefault();
     if (email && password) {
       try {
-        const response = await axios.post("http://localhost:4000/login", {
+        const response = await axios.post(`${url}/login`, {
           email,
           password,
         });
@@ -43,6 +44,7 @@ const Login = ({ setConnected, token }) => {
     <section className="container">
       <section className="contain connect">
         <div className="left-part">
+          <img src={miniLogo} alt="logo" className="mini-logo" />
           <h3>How does it work?</h3>
           <div className="text">
             <FontAwesomeIcon icon="user" className="connect-icon" />
