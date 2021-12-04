@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = ({ token, userId, setConnected, url }) => {
   const [data, setData] = useState();
@@ -12,6 +13,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [file, setFile] = useState();
   const [error, setError] = useState("");
+  const [revealPassword, setRevealPassword] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -127,17 +129,30 @@ const Profile = ({ token, userId, setConnected, url }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type="password"
+            type={!revealPassword ? "password" : "text"}
             value={password}
             placeholder="new password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
-            type="password"
+            type={!revealPassword ? "password" : "text"}
             value={confirmPassword}
             placeholder="confirm password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
+          {!revealPassword ? (
+            <FontAwesomeIcon
+              icon="eye"
+              className="eye-update"
+              onClick={() => setRevealPassword(!revealPassword)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon="eye-slash"
+              className="eye-update"
+              onClick={() => setRevealPassword(!revealPassword)}
+            />
+          )}
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />
           <div style={{ color: "red" }}>{error}</div>
           <input type="submit" value="update userData" />

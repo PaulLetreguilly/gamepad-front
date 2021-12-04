@@ -155,17 +155,30 @@ const Login = ({ setConnected, token, url }) => {
               onChange={(e) => setAnswer(e.target.value)}
             />
             <input
-              type="password"
+              type={!revealPassword ? "password" : "text"}
               placeholder="new password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
             <input
-              type="password"
+              type={!revealPassword ? "password" : "text"}
               placeholder="confirm your password"
               onChange={(e) => setconfirmPassword(e.target.value)}
               value={confirmPassword}
             />
+            {!revealPassword ? (
+              <FontAwesomeIcon
+                icon="eye"
+                className="eye-forget"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon="eye-slash"
+                className="eye-forget"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            )}
             <div style={{ color: "red" }}>{error}</div>
             <input type="submit" value="change password" />
             <div
@@ -173,6 +186,7 @@ const Login = ({ setConnected, token, url }) => {
               onClick={() => {
                 setError("");
                 setPassword("");
+                setRevealPassword(false);
                 setForgotten(false);
               }}
             >
@@ -213,6 +227,7 @@ const Login = ({ setConnected, token, url }) => {
               onClick={() => {
                 setError("");
                 setPassword("");
+                setRevealPassword(false);
                 setForgotten(true);
               }}
             >

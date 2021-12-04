@@ -14,6 +14,7 @@ const Signup = ({ setConnected, token, url }) => {
   const [file, setFile] = useState(null);
   const [dropDown, setDropDown] = useState(null);
   const [question, setQuestion] = useState("");
+  const [revealPassword, setRevealPassword] = useState(false);
 
   const questions = {
     results: [
@@ -113,19 +114,32 @@ const Signup = ({ setConnected, token, url }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <div>
+          <div style={{ position: "relative" }}>
             <input
-              type="password"
+              type={!revealPassword ? "password" : "text"}
               placeholder="Password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <input
-              type="password"
+              type={!revealPassword ? "password" : "text"}
               placeholder="Confirm your password..."
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            {!revealPassword ? (
+              <FontAwesomeIcon
+                icon="eye"
+                className="eye-sign"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon="eye-slash"
+                className="eye-sign"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            )}
           </div>
           <div style={{ width: "30vw" }}>
             <Dropdown

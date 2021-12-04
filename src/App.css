@@ -701,14 +701,42 @@ form input[type="submit"]:hover {
 }
 .eye-login {
   position: absolute;
-  top: 29.7vh;
-  right: 10vw;
+  top: 50%;
+  right: 25%;
   color: black;
 }
 .eye-login:hover {
   cursor: pointer;
 }
-
+.eye-forget {
+  position: absolute;
+  top: 50.5%;
+  right: 12.5%;
+  color: black;
+}
+.eye-forget:hover {
+  cursor: pointer;
+}
+.eye-sign {
+  position: absolute;
+  top: 33%;
+  right: 53%;
+  color: black;
+  z-index: 2;
+}
+.eye-sign:hover {
+  cursor: pointer;
+}
+.eye-update {
+  position: absolute;
+  top: 50%;
+  right: 25%;
+  color: black;
+  z-index: 2;
+}
+.eye-update:hover {
+  cursor: pointer;
+}
 /*-------- ********** --------*/
 /*--------   REVIEW   --------*/
 /*-------- ********** --------*/
