@@ -6,15 +6,29 @@ import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 import Cookies from "js-cookie";
 
-const Home = ({ url }) => {
+const Home = ({
+  url,
+  search,
+  setSearch,
+  value,
+  valueGenre,
+  valuePlat,
+  setValue,
+  setValueGenre,
+  setValuePlat,
+  setPage,
+  page,
+  setLimit,
+  limit,
+}) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
-  const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
-  const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
-  const [valuePlat, setValuePlat] = useState(Cookies.get("platform") || null); // platform filter
-  const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
-  const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
+  // const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
+  // const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
+  // const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
+  // const [valuePlat, setValuePlat] = useState(Cookies.get("platform") || null); // platform filter
+  // const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
+  // const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
   const [startFilters, setStartFilters] = useState(false); // button that starts filters
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter

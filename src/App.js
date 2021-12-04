@@ -41,6 +41,13 @@ function App() {
   const [userImage, setUserImage] = useState(Cookies.get("userImage") || null);
   const [username, setUsername] = useState(Cookies.get("username") || null);
 
+  const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
+  const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
+  const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
+  const [valuePlat, setValuePlat] = useState(Cookies.get("platform") || null); // platform filter
+  const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
+  const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
+
   // const url = "http://localhost:4000";
   const url = "https://my-gamepad.herokuapp.com";
   // use this const to switch from local to online server once deployed on heroku
@@ -80,9 +87,34 @@ function App() {
         userToken={userToken}
         userImage={userImage}
         username={username}
+        search={search} // values from homepage, used to save search params when navigating with header
+        value={value}
+        page={page}
+        limit={limit}
+        valuePlat={valuePlat}
+        valueGenre={valueGenre}
       />
       <Routes>
-        <Route path={"/"} element={<Home url={url} />} />
+        <Route
+          path={"/"}
+          element={
+            <Home
+              url={url}
+              search={search} // values from homepage, used to save search params when navigating with header
+              setSearch={setSearch}
+              value={value}
+              setValue={setValue}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              limit={limit}
+              setValueGenre={setValueGenre}
+              setValuePlat={setValuePlat}
+              valuePlat={valuePlat}
+              valueGenre={valueGenre}
+            />
+          }
+        />
         <Route
           path={"/game/:slug"}
           element={<Game userId={userId} token={userToken} url={url} />}

@@ -35,12 +35,14 @@ const Signup = ({ setConnected, token, url }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("files", file);
     formData.append("email", email);
     formData.append("username", username);
     formData.append("password", password);
     formData.append("question", dropDown.name);
     formData.append("answer", question);
+    if (file) {
+      formData.append("files", file);
+    }
 
     try {
       if (email && username && password && confirmPassword) {
@@ -57,12 +59,21 @@ const Signup = ({ setConnected, token, url }) => {
               ),
           });
           console.log(response.data);
-          setConnected(
-            response.data.token,
-            response.data._id,
-            response.data.image.secure_url,
-            response.data.username
-          );
+          if (response.data.image) {
+            setConnected(
+              response.data.token,
+              response.data._id,
+              response.data.image.secure_url,
+              response.data.username
+            );
+          } else {
+            setConnected(
+              response.data.token,
+              response.data._id,
+              null,
+              response.data.username
+            );
+          }
         } else {
           alert("Veuillez rentrer deux fois le même mot de passe");
         }
