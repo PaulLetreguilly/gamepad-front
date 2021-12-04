@@ -23,6 +23,8 @@ const Home = ({
 }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [array, setArray] = useState([]);
+
   // const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
   // const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
   // const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
@@ -117,6 +119,17 @@ const Home = ({
     fetchFilterGenre({ signal: AbortCont.signal });
   }, [search, page, limit, startFilters]);
 
+  const arr = [];
+  const autoComplete = () => {
+    // const arr = [...array];
+    data.results.map((e, i) => {
+      const str = e.name.toLowerCase();
+      arr.push(str);
+    });
+    // setArray(arr);
+  };
+  search && autoComplete();
+
   return isLoading ? (
     <div>Loading...</div>
   ) : (
@@ -127,17 +140,39 @@ const Home = ({
           alt=""
           style={{ width: "20vw", height: "14vh", objectFit: "contain" }}
         />
-        <input
-          type="text"
-          className="search-bar"
-          placeholder="Search games..."
-          onChange={(e) => {
-            if (Cookies.get("search")) {
-              Cookies.remove("search");
-            }
-            setSearch(e.target.value);
-          }}
-        />
+        <div style={{ position: "relative" }}>
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search games..."
+            value={search}
+            onChange={(e) => {
+              if (Cookies.get("search")) {
+                Cookies.remove("search");
+              }
+              setSearch(e.target.value);
+              setArray(arr);
+            }}
+          />
+          <div className={`auto-complete ${search ? "display" : "none"}`}>
+            {array?.map((e, i) => {
+              return (
+                <div
+                  key={i}
+                  className="result-auto-comp"
+                  onClick={() => {
+                    // console.log(e);
+                    setSearch(e);
+                    setArray([]);
+                  }}
+                >
+                  {e}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {search && <div>Search result for "{search}"</div>}
         <div style={{ margin: "0.5vw 0 2vw 0" }}>{data.count} games</div>
       </div>

@@ -242,12 +242,15 @@ const Game = ({ userId, token, url }) => {
   const checkLike = (review) => {
     const arr = [];
     // let a = 0;
-    for (let i = 0; i < review.like.length; i++) {
-      if (review.like[i].user._id === userData._id) {
-        arr.push(review.like[i]);
-        // a = i;
+    if (userData) {
+      for (let i = 0; i < review.like.length; i++) {
+        if (review.like[i].user._id === userData._id) {
+          arr.push(review.like[i]);
+          // a = i;
+        }
       }
     }
+
     if (arr.length > 0) {
       return true;
     } else {
@@ -256,11 +259,14 @@ const Game = ({ userId, token, url }) => {
   };
   const checkDislike = (review) => {
     const arr = [];
-    for (let i = 0; i < review.dislike.length; i++) {
-      if (review.dislike[i].user._id === userData._id) {
-        arr.push(review.dislike[i]);
+    if (userData) {
+      for (let i = 0; i < review.dislike.length; i++) {
+        if (review.dislike[i].user._id === userData._id) {
+          arr.push(review.dislike[i]);
+        }
       }
     }
+
     if (arr.length > 0) {
       return true;
     } else {
@@ -357,11 +363,14 @@ const Game = ({ userId, token, url }) => {
 
   const reviewChecker = (reviews) => {
     let a = 0;
-    for (let i = 0; i < reviews?.length; i++) {
-      if (reviews[i]?.user._id === userData._id) {
-        a = 1;
+    if (userId) {
+      for (let i = 0; i < reviews?.length; i++) {
+        if (reviews[i]?.user._id === userData._id) {
+          a = 1;
+        }
       }
     }
+
     if (a > 0) {
       setReviewCheck(true);
       return true;
@@ -383,11 +392,14 @@ const Game = ({ userId, token, url }) => {
   };
   const testReview = (rev) => {
     let a = 0;
-    for (let i = 0; i < rev?.length; i++) {
-      if (rev[i]?.user._id === userData._id) {
-        a = 1;
+    if (userData) {
+      for (let i = 0; i < rev?.length; i++) {
+        if (rev[i]?.user._id === userData._id) {
+          a = 1;
+        }
       }
     }
+
     if (a > 0) {
       return true;
     } else {
@@ -583,7 +595,13 @@ const Game = ({ userId, token, url }) => {
                   <section className="reviews-right">
                     <div>
                       <button
-                        onClick={() => handleLike(review)}
+                        onClick={() => {
+                          if (token) {
+                            handleLike(review);
+                          } else {
+                            navigate("/login");
+                          }
+                        }}
                         className={`btn-like ${
                           checkLike(review) ? "like" : null
                         }`}
@@ -591,7 +609,13 @@ const Game = ({ userId, token, url }) => {
                         like
                       </button>
                       <button
-                        onClick={() => handleDislike(review)}
+                        onClick={() => {
+                          if (token) {
+                            handleDislike(review);
+                          } else {
+                            navigate("/login");
+                          }
+                        }}
                         className={`btn-dislike ${
                           checkDislike(review) ? "dislike" : null
                         }`}

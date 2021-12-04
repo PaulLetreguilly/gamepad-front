@@ -41,6 +41,8 @@ function App() {
   const [userImage, setUserImage] = useState(Cookies.get("userImage") || null);
   const [username, setUsername] = useState(Cookies.get("username") || null);
 
+  // states below are for homepage, but are also sent to header to save search queries with cookies
+
   const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
   const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
   const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)

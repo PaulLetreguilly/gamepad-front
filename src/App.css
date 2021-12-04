@@ -126,6 +126,46 @@ header div img {
   margin: 1vw 0;
   padding: 0.5vw 0.5vw;
 }
+.auto-complete {
+  background-color: #1f2023;
+  /* background-color: white; */
+  color: black;
+  position: absolute;
+  top: 3vw;
+  left: 0;
+  width: 21.2vw;
+  height: 20vh;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.display:hover {
+  cursor: pointer;
+  /* opacity: 0.5; */
+}
+.container .search .result-auto-comp {
+  width: 100%;
+  padding: 0.1vw 0;
+  /* background-color: #1f2023; */
+  /* background-color: pink !important; */
+  border-bottom: 1px solid white !important;
+  border-right: 1px solid white !important;
+  border-left: 1px solid white !important;
+}
+.result-auto-comp:hover {
+  /* opacity: 0.5; */
+  /* background-color: white;
+  color: black; */
+}
+.auto-complete::-webkit-scrollbar {
+  display: none;
+}
+.none {
+  display: none;
+}
+.display {
+  display: inherit;
+}
 /* filter menus */
 .filter-menu {
   width: 80vw;
@@ -721,8 +761,8 @@ form input[type="submit"]:hover {
 }
 .eye-forget {
   position: absolute;
-  top: 50.5%;
-  right: 12.5%;
+  top: 35%;
+  right: 4%;
   color: black;
 }
 .eye-forget:hover {
@@ -738,10 +778,20 @@ form input[type="submit"]:hover {
 .eye-sign:hover {
   cursor: pointer;
 }
+.contain-eye {
+  position: relative;
+  /* background-color: pink; */
+}
+.right-part .contain-eye > input {
+  width: 20vw;
+}
+.contain .right-part .contain-eye .psw-input {
+  width: 30vw;
+}
 .eye-update {
   position: absolute;
-  top: 50%;
-  right: 25%;
+  top: 35%;
+  right: 5%;
   color: black;
   z-index: 2;
 }

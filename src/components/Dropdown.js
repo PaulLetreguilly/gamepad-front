@@ -10,6 +10,7 @@ const Dropdown = ({ prompt, value, onChange, option, type }) => {
   }, []);
   const close = (e) => {
     // console.dir([event.target, ref.current]);
+    // console.log(ref.current);
     setOpen(e && e.target === ref.current);
   };
 
@@ -44,7 +45,7 @@ const Dropdown = ({ prompt, value, onChange, option, type }) => {
               className={`option ${value === elem ? "selected" : null}`}
               onClick={() => {
                 onChange(elem);
-                setOpen(false);
+                setOpen(!open);
               }}
               // onBlur={() => {
               //   setTimeout(() => {

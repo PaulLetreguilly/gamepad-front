@@ -154,31 +154,36 @@ const Login = ({ setConnected, token, url }) => {
               placeholder="Your answer..."
               onChange={(e) => setAnswer(e.target.value)}
             />
-            <input
-              type={!revealPassword ? "password" : "text"}
-              placeholder="new password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
+            <div className="contain-eye">
+              <input
+                type={!revealPassword ? "password" : "text"}
+                placeholder="new password"
+                className="psw-input"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+              {!revealPassword ? (
+                <FontAwesomeIcon
+                  icon="eye"
+                  className="eye-forget"
+                  onClick={() => setRevealPassword(!revealPassword)}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon="eye-slash"
+                  className="eye-forget"
+                  onClick={() => setRevealPassword(!revealPassword)}
+                />
+              )}
+            </div>
+
             <input
               type={!revealPassword ? "password" : "text"}
               placeholder="confirm your password"
               onChange={(e) => setconfirmPassword(e.target.value)}
               value={confirmPassword}
             />
-            {!revealPassword ? (
-              <FontAwesomeIcon
-                icon="eye"
-                className="eye-forget"
-                onClick={() => setRevealPassword(!revealPassword)}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon="eye-slash"
-                className="eye-forget"
-                onClick={() => setRevealPassword(!revealPassword)}
-              />
-            )}
+
             <div style={{ color: "red" }}>{error}</div>
             <input type="submit" value="change password" />
             <div
