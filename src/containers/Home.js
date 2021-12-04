@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown";
 import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
+import Cookies from "js-cookie";
 
 const Home = ({ url }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState(""); // search bar input
-  const [page, setPage] = useState(1); // pagination at the bottom
-  const [limit, setLimit] = useState(20); // number of games loaded in the page, can change => next to pagination (button load more)
-  const [valuePlat, setValuePlat] = useState(null); // platform filter
-  const [valueGenre, setValueGenre] = useState(null); //game genre filter
-  const [value, setValue] = useState(null); // sorting filter
+  const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
+  const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
+  const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
+  const [valuePlat, setValuePlat] = useState(Cookies.get("platform") || null); // platform filter
+  const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
+  const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
   const [startFilters, setStartFilters] = useState(false); // button that starts filters
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter
@@ -56,6 +57,9 @@ const Home = ({ url }) => {
         const response = await axios.get(`${url}/games`, {
           params: body,
         });
+        // if (Cookies.get("search")) {
+        //   console.log(Cookies.get("search"));
+        // }
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -67,12 +71,23 @@ const Home = ({ url }) => {
       }
     };
     fetchData({ signal: AbortCont.signal });
-    const fetchFilters = async () => {
+    const fetchFilterPlat = async () => {
       try {
         const platforms = await axios.get(
           `https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51`
         );
         setPlatformList(platforms.data);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
+      }
+    };
+    fetchFilterPlat({ signal: AbortCont.signal });
+    const fetchFilterGenre = async () => {
+      try {
         const genres = await axios.get(
           `https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d`
         );
@@ -85,7 +100,7 @@ const Home = ({ url }) => {
         }
       }
     };
-    fetchFilters({ signal: AbortCont.signal });
+    fetchFilterGenre({ signal: AbortCont.signal });
   }, [search, page, limit, startFilters]);
 
   return isLoading ? (
@@ -102,7 +117,12 @@ const Home = ({ url }) => {
           type="text"
           className="search-bar"
           placeholder="Search games..."
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            if (Cookies.get("search")) {
+              Cookies.remove("search");
+            }
+            setSearch(e.target.value);
+          }}
         />
         {search && <div>Search result for "{search}"</div>}
         <div>{data.count} games</div>
@@ -116,7 +136,12 @@ const Home = ({ url }) => {
                 prompt={"All"}
                 value={valuePlat}
                 option={platformList}
-                onChange={(val) => setValuePlat(val)}
+                onChange={(val) => {
+                  if (Cookies.get("platform")) {
+                    Cookies.remove("platform");
+                  }
+                  setValuePlat(val);
+                }}
               />
             </div>
             {/* <Dropdown
@@ -132,7 +157,12 @@ const Home = ({ url }) => {
                 prompt={"All"}
                 value={valueGenre}
                 option={genreList}
-                onChange={(val) => setValueGenre(val)}
+                onChange={(val) => {
+                  if (Cookies.get("genre")) {
+                    Cookies.remove("genre");
+                  }
+                  setValueGenre(val);
+                }}
               />
             </div>
             {/* <Dropdown
@@ -160,7 +190,12 @@ const Home = ({ url }) => {
                 prompt={"Default"}
                 value={value}
                 option={filter}
-                onChange={(val) => setValue(val)}
+                onChange={(val) => {
+                  if (Cookies.get("sort")) {
+                    Cookies.remove("sort");
+                  }
+                  setValue(val);
+                }}
               />
             </div>
             {/* <Dropdown
@@ -190,7 +225,27 @@ const Home = ({ url }) => {
             <div
               key={i}
               className="game"
-              onClick={() => navigate(`/game/${game.slug}`)}
+              onClick={() => {
+                if (search) {
+                  Cookies.set("search", search);
+                }
+                if (page !== 1) {
+                  Cookies.set("page", page);
+                }
+                if (limit !== 20) {
+                  Cookies.set("limit", limit);
+                }
+                if (valuePlat) {
+                  Cookies.set("platform", valuePlat);
+                }
+                if (value) {
+                  Cookies.set("sort", value);
+                }
+                if (valueGenre) {
+                  Cookies.set("genre", valueGenre);
+                }
+                navigate(`/game/${game.slug}`);
+              }}
             >
               <img src={game.background_image} alt="" className="game-img" />
               <h2>{game.name}</h2>
@@ -200,7 +255,16 @@ const Home = ({ url }) => {
       </div>
       <div className="load-more">
         {limit < 40 && (
-          <button onClick={() => setLimit(limit + 10)}>Load more</button>
+          <button
+            onClick={() => {
+              if (Cookies.get("limit")) {
+                Cookies.remove("limit");
+              }
+              setLimit(limit + 10);
+            }}
+          >
+            Load more
+          </button>
         )}
       </div>
       <div className="pagination">
@@ -209,7 +273,12 @@ const Home = ({ url }) => {
             <button
               className={page === i + 1 ? "page" : "pages"}
               key={i}
-              onClick={() => setPage(i + 1)}
+              onClick={() => {
+                if (Cookies.get("page")) {
+                  Cookies.remove("page");
+                }
+                setPage(i + 1);
+              }}
             >
               <span>{i + 1}</span>
             </button>

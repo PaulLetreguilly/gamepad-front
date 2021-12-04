@@ -18,23 +18,23 @@ const Dropdown = ({ prompt, value, onChange, option, type }) => {
       <div
         className="control"
         onClick={() => setOpen(!open)}
-        onBlur={() => console.log("close it 2")}
+        // onBlur={() => console.log("close it 2")}
       >
         <div
           className="selected-value"
           ref={ref}
-          onBlur={() => console.log("clost it 3")}
+          // onBlur={() => console.log("clost it 3")}
         >
           {type} : {value ? value.name : prompt}
         </div>
         <div
           className={`arrow ${open ? "open" : null}`}
-          onBlur={() => console.log("close it 1")}
+          // onBlur={() => console.log("close it 1")}
         />
       </div>
       <div
         className={`options ${open ? "open" : null}`}
-        onBlur={() => console.log("clost it 4")}
+        // onBlur={() => console.log("clost it 4")}
       >
         {option?.results.map((elem, i) => {
           //   console.log(elem);
@@ -51,7 +51,7 @@ const Dropdown = ({ prompt, value, onChange, option, type }) => {
               //     setOpen(false);
               //   }, 200);
               // }}
-              onBlur={() => console.log("close it 5")}
+              // onBlur={() => console.log("close it 5")}
             >
               {elem.name}
             </div>

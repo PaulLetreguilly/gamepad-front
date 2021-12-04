@@ -63,10 +63,12 @@ header div img {
   position: absolute;
   top: 5vh;
   left: 0;
+  /* z-index: 1000; */
 }
 .user:hover .log-out,
 .user:hover .profile {
   display: inherit;
+  z-index: 1200;
 }
 .right-header .user .user-image {
   width: 1.5vw;

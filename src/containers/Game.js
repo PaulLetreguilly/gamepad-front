@@ -393,6 +393,7 @@ const Game = ({ userId, token, url }) => {
     <section className="container">
       <section className="contain">
         <section className="part-1">
+          {/* <button onClick={() => navigate(-1)}>QUICK !! GO BACK !!!!!</button> */}
           <h3 className="white">{data.name}</h3>
           <div className="poster">
             <img
