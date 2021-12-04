@@ -167,6 +167,7 @@ const Game = ({ userId, token, url }) => {
         }
       }
       if (likes.length > 0) {
+        // if there is a like from this user
         // console.log("unlike");
         // console.log(review._id);
         const unlike = await axios.post(
@@ -184,7 +185,9 @@ const Game = ({ userId, token, url }) => {
         // console.log(unlike.data);
         setRefresh(!refresh);
       } else {
+        // if there is no like from this user
         if (dislikes.length > 0) {
+          //if there is a dislike from this user
           //   console.log("like-1");
           const undislike = await axios.post(
             `${url}/review/undislike`,
@@ -214,6 +217,7 @@ const Game = ({ userId, token, url }) => {
           // console.log(like.data);
           setRefresh(!refresh);
         } else {
+          //if there is no like or dislike from user
           //   console.log("like-2");
           const like = await axios.post(
             `${url}/review/like`,
@@ -280,9 +284,10 @@ const Game = ({ userId, token, url }) => {
         }
       }
       if (dislikes.length > 0) {
+        // if there already is a dislike from user
         // console.log("undislike-1");
         const undislike = await axios.post(
-          "http://localhost:4000/review/undislike",
+          `${url}/review/undislike`,
           {
             id: review._id,
             user: userData.email,
@@ -296,10 +301,12 @@ const Game = ({ userId, token, url }) => {
         // console.log(undislike.data);
         setRefresh(!refresh);
       } else {
+        // if there is no dislike from user
         // console.log("dislike-2");
         if (likes.length > 0) {
+          //if there already is a like from user
           const unlike = await axios.post(
-            "http://localhost:4000/review/unlike",
+            `${url}/review/unlike`,
             {
               id: review._id,
               user: userData.email,
@@ -314,7 +321,7 @@ const Game = ({ userId, token, url }) => {
           // setRefresh(!refresh);
 
           const dislike = await axios.post(
-            "http://localhost:4000/review/dislike",
+            `${url}/review/dislike`,
             {
               id: review._id,
             },
@@ -327,8 +334,9 @@ const Game = ({ userId, token, url }) => {
           //   console.log(dislike.data);
           setRefresh(!refresh);
         } else {
+          // if there is no like or dislike from user
           const dislike = await axios.post(
-            "http://localhost:4000/review/dislike",
+            `${url}/review/dislike`,
             {
               id: review._id,
             },
