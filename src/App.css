@@ -133,6 +133,7 @@ header div img {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 .left-menu,
 .right-menu {
@@ -142,6 +143,14 @@ header div img {
 }
 .right-menu {
   align-items: center;
+}
+.btn-clear {
+  color: #74d963;
+  padding: 0.5vw 0;
+}
+.btn-clear:hover {
+  cursor: pointer;
+  opacity: 0.9;
 }
 /* --- DROPDOWN --- */
 

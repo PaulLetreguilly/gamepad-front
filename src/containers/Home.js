@@ -139,7 +139,7 @@ const Home = ({
           }}
         />
         {search && <div>Search result for "{search}"</div>}
-        <div>{data.count} games</div>
+        <div style={{ margin: "0.5vw 0 2vw 0" }}>{data.count} games</div>
       </div>
       {search ? (
         <div className="filter-menu">
@@ -186,6 +186,37 @@ const Home = ({
               option={genreList}
               onChange={(val) => setValueGenre(val)}
             /> */}
+          </div>
+          <div
+            className="btn-clear"
+            onClick={() => {
+              if (Cookies.get("search")) {
+                Cookies.remove("search");
+              }
+              if (Cookies.get("genre")) {
+                Cookies.remove("genre");
+              }
+              if (Cookies.get("platform")) {
+                Cookies.remove("platform");
+              }
+              if (Cookies.get("sort")) {
+                Cookies.remove("sort");
+              }
+              if (Cookies.get("limit")) {
+                Cookies.remove("limit");
+              }
+              if (Cookies.get("page")) {
+                Cookies.remove("page");
+              }
+              setSearch("");
+              setPage(1);
+              setLimit(20);
+              setValue(null);
+              setValueGenre(null);
+              setValuePlat(null);
+            }}
+          >
+            clear filters
           </div>
           <div className="right-menu">
             <div style={{ display: "flex" }}>
