@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import miniLogo from "../assets/logo-favicon.png";
+import Dropdown from "../components/Dropdown";
 
 const Signup = ({ setConnected, token, url }) => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,16 @@ const Signup = ({ setConnected, token, url }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [file, setFile] = useState(null);
+  const [dropDown, setDropDown] = useState(null);
+  const [question, setQuestion] = useState("");
+
+  const questions = {
+    results: [
+      { name: "What's your childhood bestfriend's name ?" },
+      { name: "What's the name of your elementary school ?" },
+      { name: "What's your favorite game ?" },
+    ],
+  };
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -27,6 +38,8 @@ const Signup = ({ setConnected, token, url }) => {
     formData.append("email", email);
     formData.append("username", username);
     formData.append("password", password);
+    formData.append("question", dropDown.name);
+    formData.append("answer", question);
 
     try {
       if (email && username && password && confirmPassword) {
@@ -114,6 +127,21 @@ const Signup = ({ setConnected, token, url }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+          <div style={{ width: "30vw" }}>
+            <Dropdown
+              type={"Question "}
+              prompt={"Choose"}
+              value={dropDown}
+              option={questions}
+              onChange={(val) => setDropDown(val)}
+            />
+          </div>
+          <input
+            type="text"
+            placeholder="Answer..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
           <input
             // disabled="false"
             type="file"

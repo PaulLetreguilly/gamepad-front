@@ -74,8 +74,8 @@ function App() {
       <Header
         setConnected={setConnected}
         userToken={userToken}
-        // userImage={userImage}
-        // username={username}
+        userImage={userImage}
+        username={username}
       />
       <Routes>
         <Route path={"/"} element={<Home url={url} />} />

@@ -12,6 +12,7 @@ const Collection = ({ userId, token, url }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const abortCont = new AbortController();
     if (!userId) {
       navigate("/login");
     } else {
@@ -33,10 +34,14 @@ const Collection = ({ userId, token, url }) => {
           setData(response.data);
           setIsLoading(false);
         } catch (error) {
-          console.log(error.message);
+          if (error.name === "AbortError") {
+            console.log("fetch aborted");
+          } else {
+            console.log(error.message);
+          }
         }
       };
-      fetchCollection();
+      fetchCollection({ signal: abortCont.signal });
     }
   }, [userId, refresh]);
 

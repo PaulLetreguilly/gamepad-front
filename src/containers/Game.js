@@ -18,6 +18,8 @@ const Game = ({ userId, token, url }) => {
   const { slug } = useParams();
   //   console.log(id);
   useEffect(() => {
+    const abortCont = new AbortController();
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`${url}/game/${slug}`);
@@ -25,20 +27,28 @@ const Game = ({ userId, token, url }) => {
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.log(error.message);
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
       }
     };
-    fetchData();
+    fetchData({ signal: abortCont.signal });
     const fetchRelatedGames = async () => {
       try {
         const series = await axios.get(`${url}/game/series/${slug}`);
         // console.log("related series ===> ", series.data);
         setRelated(series.data);
       } catch (error) {
-        console.log(error.message);
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
       }
     };
-    fetchRelatedGames();
+    fetchRelatedGames({ signal: abortCont.signal });
     const fetchUser = async () => {
       try {
         const response = await axios.get(`${url}/user`, {
@@ -47,10 +57,14 @@ const Game = ({ userId, token, url }) => {
         setUserData(response.data);
         // console.log(response.data);
       } catch (error) {
-        console.log();
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
       }
     };
-    fetchUser();
+    fetchUser({ signal: abortCont.signal });
 
     const fetchReviews = async () => {
       try {
@@ -60,13 +74,22 @@ const Game = ({ userId, token, url }) => {
         // console.log(reviews.data);
         setReviews(reviews.data);
       } catch (error) {
-        console.log(error.message);
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
       }
     };
-    fetchReviews();
+    fetchReviews({ signal: abortCont.signal });
     if (reviews) {
       reviewChecker(reviews);
     }
+
+    return () => {
+      // console.log("clean up");
+      abortCont.abort();
+    };
   }, [slug, refresh, userId, reviewCheck]);
 
   useEffect(() => {
@@ -326,8 +349,8 @@ const Game = ({ userId, token, url }) => {
 
   const reviewChecker = (reviews) => {
     let a = 0;
-    for (let i = 0; i < reviews.length; i++) {
-      if (reviews[i].user._id === userData._id) {
+    for (let i = 0; i < reviews?.length; i++) {
+      if (reviews[i]?.user._id === userData._id) {
         a = 1;
       }
     }
@@ -353,7 +376,7 @@ const Game = ({ userId, token, url }) => {
   const testReview = (rev) => {
     let a = 0;
     for (let i = 0; i < rev?.length; i++) {
-      if (rev[i].user._id === userData._id) {
+      if (rev[i]?.user._id === userData._id) {
         a = 1;
       }
     }

@@ -27,6 +27,7 @@ const Home = ({ url }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const AbortCont = new AbortController();
     const fetchData = async () => {
       try {
         let body = {};
@@ -58,22 +59,33 @@ const Home = ({ url }) => {
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.log(error.message);
-        // console.log(error.response?.data.message);
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
       }
     };
-    fetchData();
+    fetchData({ signal: AbortCont.signal });
     const fetchFilters = async () => {
-      const platforms = await axios.get(
-        `https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51`
-      );
-      setPlatformList(platforms.data);
-      const genres = await axios.get(
-        `https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d`
-      );
-      setGenreList(genres.data);
+      try {
+        const platforms = await axios.get(
+          `https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51`
+        );
+        setPlatformList(platforms.data);
+        const genres = await axios.get(
+          `https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d`
+        );
+        setGenreList(genres.data);
+      } catch (error) {
+        if (error.name === "AbortError") {
+          console.log("fetch aborted");
+        } else {
+          console.log(error.message);
+        }
+      }
     };
-    fetchFilters();
+    fetchFilters({ signal: AbortCont.signal });
   }, [search, page, limit, startFilters]);
 
   return isLoading ? (
@@ -142,7 +154,7 @@ const Home = ({ url }) => {
                 <Switch check={check} setCheck={setCheck} />
               </div>
             </div>
-            <div style={{ width: "10vw", marginRight: "0.5vw" }}>
+            <div style={{ width: "12vw", marginRight: "0.5vw" }}>
               <Dropdown
                 type={"Sort by"}
                 prompt={"Default"}

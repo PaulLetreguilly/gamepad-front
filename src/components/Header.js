@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import pic from "../assets/logo.png";
 
-const Header = ({ setConnected, userToken }) => {
+const Header = ({ setConnected, userToken, username, userImage }) => {
   // console.log("username", username);
   // console.log("userImage", userImage);
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ const Header = ({ setConnected, userToken }) => {
         </Link>
         {userToken ? (
           <div className="user">
-            <img src={Cookies.get("userImage")} alt="" className="user-image" />
-            <span className="white">{Cookies.get("username")}</span>
+            <img src={userImage} alt="" className="user-image" />
+            <span className="white">{username}</span>
             <div className="user-block"></div>
             <div
               className="log-out"

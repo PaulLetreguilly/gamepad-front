@@ -13,6 +13,7 @@ const Review = ({ token, url }) => {
   // console.log(slug);
 
   useEffect(() => {
+    const AbortCont = new AbortController();
     if (!token) {
       navigate("/login");
     } else {
@@ -23,10 +24,14 @@ const Review = ({ token, url }) => {
           setData(response.data);
           setIsLoading(false);
         } catch (error) {
-          console.log(error.message);
+          if (error.name === "AbortError") {
+            console.log("fetch aborted");
+          } else {
+            console.log(error.message);
+          }
         }
       };
-      fetchGame();
+      fetchGame({ signal: AbortCont.signal });
     }
   }, [token]);
 

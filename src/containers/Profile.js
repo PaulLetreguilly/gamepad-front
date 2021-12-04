@@ -10,11 +10,12 @@ const Profile = ({ token, userId, setConnected, url }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState();
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
   useEffect(() => {
+    const AbortCont = new AbortController();
     if (!token) {
       navigate("/");
     } else {
@@ -23,14 +24,18 @@ const Profile = ({ token, userId, setConnected, url }) => {
           const user = await axios.get(`${url}/user`, {
             params: { id: userId },
           });
-          console.log(user.data);
+          // console.log(user.data);
           setData(user.data);
           setIsLoading(false);
         } catch (error) {
-          console.log(error.message);
+          if (error.name === "AbortError") {
+            console.log("fetch aborted");
+          } else {
+            console.log(error.message);
+          }
         }
       };
-      fetchData();
+      fetchData({ signal: AbortCont.signal });
     }
   }, [token]);
 
@@ -46,6 +51,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
         formData.append("email", email);
       }
       if (file) {
+        console.log("file :", file);
         formData.append("files", file);
       }
       if (password) {
@@ -69,7 +75,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
           Authorization: "Bearer " + token,
         },
       });
-      //   console.log(update.data);
+      console.log(update.data);
     } catch (error) {
       console.log(error.message);
     }
