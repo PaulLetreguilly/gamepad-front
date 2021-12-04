@@ -9,6 +9,8 @@ import {
   faUser,
   faThumbsDown,
   faThumbsUp,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Cookies from "js-cookie";
@@ -28,7 +30,9 @@ library.add(
   faCommentAlt,
   faUser,
   faThumbsDown,
-  faThumbsUp
+  faThumbsUp,
+  faEye,
+  faEyeSlash
 );
 
 function App() {
@@ -37,8 +41,8 @@ function App() {
   const [userImage, setUserImage] = useState(Cookies.get("userImage") || null);
   const [username, setUsername] = useState(Cookies.get("username") || null);
 
-  // const url = "http://localhost:4000";
-  const url = "https://my-gamepad.herokuapp.com";
+  const url = "http://localhost:4000";
+  // const url = "https://my-gamepad.herokuapp.com";
   // use this const to switch from local to online server once deployed on heroku
 
   const setConnected = (token, userId, userImage, username) => {

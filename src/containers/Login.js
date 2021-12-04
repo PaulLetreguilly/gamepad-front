@@ -15,6 +15,7 @@ const Login = ({ setConnected, token, url }) => {
   const [answer, setAnswer] = useState("");
   const [yourEmail, setYourEmail] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
+  const [revealPassword, setRevealPassword] = useState(false);
 
   const questions = {
     results: [
@@ -131,7 +132,7 @@ const Login = ({ setConnected, token, url }) => {
           </div>
         </div>
         {forgotten ? (
-          <form className="right-part" onSubmit={handleForgotten}>
+          <form className="right-part forget" onSubmit={handleForgotten}>
             <span>so your forgot uh...</span>
             <input
               type="text"
@@ -167,15 +168,16 @@ const Login = ({ setConnected, token, url }) => {
             />
             <div style={{ color: "red" }}>{error}</div>
             <input type="submit" value="change password" />
-            <button
+            <div
+              className="btn-forgotten"
               onClick={() => {
                 setError("");
                 setPassword("");
                 setForgotten(false);
               }}
             >
-              go back
-            </button>
+              WAIT !! I remember my password now...
+            </div>
           </form>
         ) : (
           <form onSubmit={handleSubmit} className="right-part">
@@ -187,11 +189,24 @@ const Login = ({ setConnected, token, url }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type="password"
+              type={!revealPassword ? "password" : "text"}
               placeholder="Password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {!revealPassword ? (
+              <FontAwesomeIcon
+                icon="eye"
+                className="eye-login"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon="eye-slash"
+                className="eye-login"
+                onClick={() => setRevealPassword(!revealPassword)}
+              />
+            )}
             <div style={{ color: "red" }}>{error}</div>
             <div
               className="forgot"

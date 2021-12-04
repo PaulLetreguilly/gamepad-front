@@ -377,6 +377,17 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.btn-forgotten {
+  margin-top: 1vw;
+}
+.btn-forgotten:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+.forget input:not([type="submit"]) {
+  /* background-color: green; */
+  width: 30vw;
+}
 /* ---- *********** ---- */
 
 /*-------- ********** --------*/
@@ -646,6 +657,7 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   background-color: #333436;
+  position: relative;
 }
 .right-part > input {
   width: 20vw;
@@ -686,6 +698,15 @@ form input[type="submit"]:hover {
   /* opacity: 0; */
 }
 .label-file {
+}
+.eye-login {
+  position: absolute;
+  top: 29.7vh;
+  right: 10vw;
+  color: black;
+}
+.eye-login:hover {
+  cursor: pointer;
 }
 
 /*-------- ********** --------*/
