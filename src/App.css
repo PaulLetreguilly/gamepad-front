@@ -138,6 +138,9 @@ header div img {
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .display:hover {
   cursor: pointer;
@@ -145,17 +148,17 @@ header div img {
 }
 .container .search .result-auto-comp {
   width: 100%;
-  padding: 0.1vw 0;
+  /* height: 30%; */
+  padding: 0.9vh 0;
   /* background-color: #1f2023; */
-  /* background-color: pink !important; */
-  border-bottom: 1px solid white !important;
-  border-right: 1px solid white !important;
-  border-left: 1px solid white !important;
+  border-bottom: 0.0625rem solid white !important;
+  border-right: 0.0625rem solid white !important;
+  border-left: 0.0625rem solid white !important;
 }
 .result-auto-comp:hover {
   /* opacity: 0.5; */
-  /* background-color: white;
-  color: black; */
+  background-color: white;
+  color: black;
 }
 .auto-complete::-webkit-scrollbar {
   display: none;

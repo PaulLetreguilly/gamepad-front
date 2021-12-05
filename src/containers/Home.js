@@ -122,7 +122,7 @@ const Home = ({
   const arr = [];
   const autoComplete = () => {
     // const arr = [...array];
-    data.results.map((e, i) => {
+    data?.results.map((e, i) => {
       const str = e.name.toLowerCase();
       arr.push(str);
     });
@@ -152,6 +152,11 @@ const Home = ({
               }
               setSearch(e.target.value);
               setArray(arr);
+            }}
+            onBlur={() => {
+              setTimeout(() => {
+                setArray([]);
+              }, 200);
             }}
           />
           <div className={`auto-complete ${search ? "display" : "none"}`}>
