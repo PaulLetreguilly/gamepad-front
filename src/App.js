@@ -50,8 +50,8 @@ function App() {
   const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
   const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
 
-  const url = "http://localhost:4000";
-  // const url = "https://my-gamepad.herokuapp.com";
+  // const url = "http://localhost:4000";
+  const url = "https://my-gamepad.herokuapp.com";
   // use this const to switch from local to online server once deployed on heroku
 
   useEffect(() => {}, [userImage]);
