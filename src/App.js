@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBookmark,
@@ -50,9 +50,11 @@ function App() {
   const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
   const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
 
-  // const url = "http://localhost:4000";
-  const url = "https://my-gamepad.herokuapp.com";
+  const url = "http://localhost:4000";
+  // const url = "https://my-gamepad.herokuapp.com";
   // use this const to switch from local to online server once deployed on heroku
+
+  useEffect(() => {}, [userImage]);
 
   const setConnected = (token, userId, userImage, username) => {
     if (token && userId) {

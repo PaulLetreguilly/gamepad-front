@@ -9,9 +9,10 @@ const Dropdown = ({ prompt, value, onChange, option, type }) => {
     return () => document.removeEventListener("click", close);
   }, []);
   const close = (e) => {
-    // console.dir([event.target, ref.current]);
-    // console.log(ref.current);
-    setOpen(e && e.target === ref.current);
+    const { current: wrap } = ref;
+    if (wrap && !wrap.contains(e.target)) {
+      setOpen(false);
+    }
   };
 
   return (

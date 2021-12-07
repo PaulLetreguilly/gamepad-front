@@ -14,6 +14,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
   const [file, setFile] = useState();
   const [error, setError] = useState("");
   const [revealPassword, setRevealPassword] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,7 +40,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
       };
       fetchData({ signal: AbortCont.signal });
     }
-  }, [token]);
+  }, [token, refresh]);
 
   const handleSubmit = async (e) => {
     try {
@@ -78,6 +79,15 @@ const Profile = ({ token, userId, setConnected, url }) => {
         },
       });
       console.log(update.data);
+      if (update.data.image) {
+        setConnected(
+          update.data.token,
+          update.data._id,
+          update.data.image.secure_url,
+          update.data.username
+        );
+      }
+      setRefresh(!refresh);
     } catch (error) {
       console.log(error.message);
     }
@@ -89,20 +99,20 @@ const Profile = ({ token, userId, setConnected, url }) => {
     <section className="container profile-page">
       <section className="contain connect">
         <div className="left-part">
-          <div>display userData (coming soon...)</div>
-          <div>
+          <div className="ft-size">display userData (coming soon...)</div>
+          <div className="ft-size">
             <span className="red">username : </span>
-            {data.username}
+            {data?.username}
           </div>
-          <div>
+          <div className="ft-size">
             <span className="red">email : </span>
-            {data.email}
+            {data?.email}
           </div>
           {/* <div>{data.username}</div> */}
           {/* <div></div> */}
-          {data.image && (
+          {data?.image && (
             <img
-              src={data.image.secure_url}
+              src={data?.image.secure_url}
               alt="user-image"
               style={{
                 width: "10vw",
@@ -114,19 +124,25 @@ const Profile = ({ token, userId, setConnected, url }) => {
           )}
           <button onClick={() => navigate(-1)}>Go back</button>
         </div>
-        <form onSubmit={(e) => handleSubmit(e)} className="right-part">
+        <form
+          autocomplete="off"
+          onSubmit={(e) => handleSubmit(e)}
+          className="right-part"
+        >
           <h3>update data</h3>
           <input
             type="text"
             value={username}
-            placeholder={data.username}
+            placeholder={data?.username}
             onChange={(e) => setUsername(e.target.value)}
+            autocomplete="off"
           />
           <input
             type="email"
             value={email}
-            placeholder={data.email}
+            placeholder={data?.email}
             onChange={(e) => setEmail(e.target.value)}
+            autocomplete="off"
           />
 
           <div className="contain-eye">
@@ -135,6 +151,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
               value={password}
               placeholder="new password"
               onChange={(e) => setPassword(e.target.value)}
+              autocomplete="off"
             />
             {!revealPassword ? (
               <FontAwesomeIcon
@@ -155,6 +172,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
             value={confirmPassword}
             placeholder="confirm password"
             onChange={(e) => setConfirmPassword(e.target.value)}
+            autocomplete="off"
           />
 
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />

@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import pic from "../assets/logo.png";
 import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 const Header = ({
   setConnected,
@@ -20,6 +21,9 @@ const Header = ({
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(location.pathname);
+  console.log(userImage);
+  useEffect(() => {}, [userImage]);
+
   return (
     <header>
       <div className="left-header">
@@ -59,7 +63,11 @@ const Header = ({
         </Link>
         {userToken ? (
           <div className="user">
-            <img src={userImage} alt="" className="user-image" />
+            <img
+              src={Cookies.get("userImage") || userImage}
+              alt=""
+              className="user-image"
+            />
             <span className="white">{username}</span>
             <div className="user-block"></div>
             <div

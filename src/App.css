@@ -3,6 +3,10 @@
 body {
   margin: 0 auto;
   font-family: "Roboto", sans-serif;
+  background-color: #1f2023;
+}
+.ft-size {
+  font-size: 1rem;
 }
 /*-------- ********** --------*/
 /*********** HEADER ***********/
@@ -13,14 +17,14 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 80vw;
-  height: 10vh;
+  height: 4.5rem;
   padding: 0 10vw;
   background-color: #1f2023;
-  border-bottom: #fe4555 1px solid;
+  border-bottom: #fe4555 0.0625rem solid;
 }
 header div img {
-  width: 10vw;
-  height: 7vh;
+  width: 9rem;
+  /* height: 100rem; */
   object-fit: contain;
 }
 .right-header {
@@ -28,18 +32,19 @@ header div img {
   align-items: center;
 }
 .right-header div {
-  margin-right: 1vw;
+  margin-right: 1rem;
 }
 .log-out {
   color: white;
   background-color: #fe4555;
   text-align: center;
-  border-radius: 1vw;
-  padding: 0.2vw 1vw;
+  border-radius: 1rem;
+  padding: 0.2rem 0.8rem;
   display: none;
   position: absolute;
-  top: 14vh;
-  left: 2.5vw;
+  top: 6rem;
+  left: 1.75rem;
+  font-size: 0.8rem;
 }
 .log-out:hover {
   opacity: 0.9;
@@ -52,16 +57,17 @@ header div img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 7vw;
+  width: 6.05rem;
+  font-size: 1rem;
 }
 .user:hover {
   cursor: pointer;
 }
 .user-block {
-  width: 10vw;
-  height: 15vh;
+  width: 8.6rem;
+  height: 6.9rem;
   position: absolute;
-  top: 5vh;
+  top: 2.3rem;
   left: 0;
   /* z-index: 1000; */
 }
@@ -71,23 +77,24 @@ header div img {
   z-index: 1200;
 }
 .right-header .user .user-image {
-  width: 1.5vw;
-  height: 1.5vw;
+  width: 1.3rem;
+  height: 1.3rem;
   /* object-fit: cover; */
-  margin: 0 0.5vw;
+  margin: 0 0.43rem;
 }
 .profile {
-  font-size: 1vw;
-  width: 4.5vw;
+  font-size: 0.86rem;
+  width: 4rem;
   background-color: gray;
-  padding: 0.2vw 1vw;
+  padding: 0.17rem 0.86rem;
   border: none;
-  border-radius: 1vw;
+  border-radius: 0.86rem;
   color: white;
   display: none;
   position: absolute;
-  top: 7vh;
-  left: 1.5vw;
+  top: 3.4rem;
+  left: 1.3rem;
+  font-size: 0.8rem;
 }
 .profile:hover {
   cursor: pointer;
@@ -100,8 +107,9 @@ header div img {
 .container {
   width: 100vw;
   background-color: #1f2023;
-  padding: 10vh 0;
+  padding: 4.8rem 0;
   /* margin: 0 auto; */
+  font-size: 1rem;
 }
 .contain {
   width: 80vw;
@@ -122,19 +130,19 @@ header div img {
 }
 
 .search-bar {
-  width: 20vw;
-  margin: 1vw 0;
-  padding: 0.5vw 0.5vw;
+  width: 18rem;
+  margin: 0.86rem 0;
+  padding: 0.43rem 0.43rem;
 }
 .auto-complete {
   background-color: #1f2023;
-  /* background-color: white; */
+  /* background-color: pink; */
   color: black;
   position: absolute;
-  top: 3vw;
+  top: 3.25rem;
   left: 0;
-  width: 21.2vw;
-  height: 20vh;
+  width: 22.36rem;
+  height: 6rem;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -144,12 +152,10 @@ header div img {
 }
 .display:hover {
   cursor: pointer;
-  /* opacity: 0.5; */
 }
 .container .search .result-auto-comp {
   width: 100%;
-  /* height: 30%; */
-  padding: 0.9vh 0;
+  padding: 0.4rem 0;
   /* background-color: #1f2023; */
   border-bottom: 0.0625rem solid white !important;
   border-right: 0.0625rem solid white !important;
@@ -177,19 +183,28 @@ header div img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  /* background-color: teal; */
+}
+.left-menu,
+.right-menu,
+.btn-clear {
+  /* width: 26.5vw; */
 }
 .left-menu,
 .right-menu {
   display: flex;
   flex-direction: row;
-  margin: 0 1.5vw;
+  margin: 0 1.3rem;
+  /* background-color: pink; */
 }
 .right-menu {
   align-items: center;
 }
 .btn-clear {
   color: #74d963;
-  padding: 0.5vw 0;
+  padding: 0.43rem 0;
+  /* background-color: pink; */
+  /* z-index: 100; */
 }
 .btn-clear:hover {
   cursor: pointer;
@@ -200,7 +215,7 @@ header div img {
 .dropdown {
   position: relative;
   /* color: #333; */
-  border-radius: 1vw;
+  border-radius: 0.86rem;
   color: white;
   cursor: default;
 }
@@ -230,7 +245,7 @@ header div img {
   font-size: 1rem;
   /* background-color: #fff; */
   background-color: #333;
-  border: 1px solid #ccc;
+  border: 0.0625rem solid #ccc;
   border-radius: 1.5rem;
   box-sizing: border-box;
   cursor: default;
@@ -244,9 +259,9 @@ header div img {
   display: none;
   /* background-color: #fff; */
   background-color: #333;
-  border: 1px solid #ccc;
+  border: 0.0625rem solid #ccc;
   border-radius: 1rem;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.0625rem 0 rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
   margin-top: -0.0625rem;
   max-height: 12.5rem;
@@ -286,7 +301,7 @@ header div img {
   background-color: #fe4555;
   color: white;
   border: none;
-  border-radius: 0.4vw;
+  border-radius: 0.3rem;
   height: 2rem;
 }
 .btn-filters:hover {
@@ -312,7 +327,7 @@ h1 {
   width: 14vw;
   height: 20vw;
   position: relative;
-  margin: 0.5vw 1vw;
+  margin: 0.43rem 0.86rem;
 }
 .game:hover {
   opacity: 0.8;
@@ -336,13 +351,13 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5vh 0 0 0;
+  margin: 4.3rem 0 0 0;
 }
 .load-more > button {
   border: none;
   background-color: #2d2d2d;
   color: white;
-  padding: 2vh 2vw;
+  padding: 2vh 1.7rem;
   font-size: 1.8vw;
 }
 .load-more > button:hover {
@@ -374,8 +389,8 @@ h2 {
 .switch {
   position: relative;
   display: inline-block;
-  width: 52px;
-  height: 20px;
+  width: 3.25rem;
+  height: 1.25rem;
 }
 
 /* Hide default HTML checkbox */
@@ -401,10 +416,10 @@ h2 {
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 20px;
-  left: 2px;
-  bottom: 2px;
+  height: 1rem;
+  width: 1.25rem;
+  left: 0.125rem;
+  bottom: 0.125rem;
   background-color: #333;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -419,20 +434,20 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  -webkit-transform: translateX(1.625rem);
+  -ms-transform: translateX(1.625rem);
+  transform: translateX(1.625rem);
 }
 
 .slider.round {
-  border-radius: 34px;
+  border-radius: 2.125rem;
 }
 
 .slider.round:before {
   border-radius: 50%;
 }
 .btn-forgotten {
-  margin-top: 1vw;
+  margin-top: 0.86rem;
 }
 .btn-forgotten:hover {
   cursor: pointer;
@@ -440,7 +455,7 @@ input:checked + .slider:before {
 }
 .forget input:not([type="submit"]) {
   /* background-color: green; */
-  width: 30vw;
+  width: 26rem;
 }
 /* ---- *********** ---- */
 
@@ -684,26 +699,26 @@ input:checked + .slider:before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid red;
+  border-right: 0.0625rem solid red;
   background-color: #2c2d2f;
   position: relative;
 }
 .left-part .mini-logo {
-  width: 1vw;
-  height: 1vw;
+  width: 0.86rem;
+  height: 0.86rem;
   object-fit: contain;
   position: absolute;
   top: 0.5rem;
   left: 0.5rem;
 }
 .left-part .text {
-  width: 20vw;
-  margin: 3vh 0;
+  width: 17rem;
+  margin: 1.3rem 0;
   padding: 0 0;
   /* background-color: thistle; */
 }
 .text .connect-icon {
-  padding: 0 0.5vw;
+  padding: 0 0.43rem;
 }
 .right-part {
   display: flex;
@@ -715,16 +730,16 @@ input:checked + .slider:before {
 }
 .right-part > input {
   width: 20vw;
-  margin: 1vh 0;
-  padding: 1vh 0.5vw;
+  margin: 0.4rem 0;
+  padding: 0.4rem 0.43rem;
 }
 .right-part > div > input {
   width: 9.2vw;
-  margin: 1vh 0;
-  padding: 1vh 0.5vw;
+  margin: 0.4rem 0;
+  padding: 0.4rem 0.43rem;
 }
 .right-part > div > input:last-child {
-  margin-left: 0.5vw;
+  margin-left: 0.43rem;
 }
 .right-part input[type="submit"] {
   background-color: red;
@@ -739,10 +754,10 @@ form input[type="submit"]:hover {
 .right-part span {
   color: white;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 .forgot {
-  margin: 1vh 0 1vh 0;
+  margin: 0.4rem 0 0.4rem 0;
 }
 .forgot:hover {
   cursor: pointer;
@@ -789,7 +804,7 @@ form input[type="submit"]:hover {
   width: 20vw;
 }
 .contain .right-part .contain-eye .psw-input {
-  width: 30vw;
+  width: 26rem;
 }
 .eye-update {
   position: absolute;

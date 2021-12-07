@@ -33,46 +33,92 @@ const Signup = ({ setConnected, token, url }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-    formData.append("email", email);
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("question", dropDown.name);
-    formData.append("answer", question);
-    if (file) {
-      formData.append("files", file);
-    }
+    const body = {};
 
+    if (file) {
+      formData.append("email", email);
+      formData.append("username", username);
+      formData.append("password", password);
+      formData.append("question", dropDown.name);
+      formData.append("answer", question);
+      formData.append("files", file);
+      console.log("blah");
+    } else {
+      // const body = {
+      //   email: email,
+      //   username: username,
+      //   password: password,
+      //   question: dropDown.name,
+      //   answer: question,
+      // };
+      body.email = email;
+      body.username = username;
+      body.password = password;
+      body.question = dropDown.name;
+      body.answer = question;
+    }
+    // console.log("test formData : ", formData);
     try {
       if (email && username && password && confirmPassword) {
         if (confirmPassword === password) {
-          console.log("first test");
-          const response = await axios.post(`${url}/signup`, formData, {
-            onUploadProgress: (ProgressEvent) =>
-              console.log(
-                "Upload progress : " +
-                  Math.round(
-                    (ProgressEvent.loaded / ProgressEvent.total) * 100
-                  ) +
-                  "%"
-              ),
-          });
-          console.log(response.data);
-          if (response.data.image) {
-            setConnected(
-              response.data.token,
-              response.data._id,
-              response.data.image.secure_url,
-              response.data.username
-            );
+          // console.log("first test");
+          if (file) {
+            console.log("file test");
+            const response = await axios.post(`${url}/signup`, formData, {
+              onUploadProgress: (ProgressEvent) =>
+                console.log(
+                  "Upload progress : " +
+                    Math.round(
+                      (ProgressEvent.loaded / ProgressEvent.total) * 100
+                    ) +
+                    "%"
+                ),
+            });
+            console.log(response.data);
+            if (response.data.image) {
+              setConnected(
+                response.data.token,
+                response.data._id,
+                response.data.image.secure_url,
+                response.data.username
+              );
+            } else {
+              setConnected(
+                response.data.token,
+                response.data._id,
+                null,
+                response.data.username
+              );
+            }
           } else {
-            setConnected(
-              response.data.token,
-              response.data._id,
-              null,
-              response.data.username
-            );
+            console.log("pas file test");
+            const response = await axios.post(`${url}/signup`, body, {
+              onUploadProgress: (ProgressEvent) =>
+                console.log(
+                  "Upload progress : " +
+                    Math.round(
+                      (ProgressEvent.loaded / ProgressEvent.total) * 100
+                    ) +
+                    "%"
+                ),
+            });
+            console.log(response.data);
+            if (response.data.image) {
+              setConnected(
+                response.data.token,
+                response.data._id,
+                response.data.image.secure_url,
+                response.data.username
+              );
+            } else {
+              setConnected(
+                response.data.token,
+                response.data._id,
+                null,
+                response.data.username
+              );
+            }
           }
         } else {
           alert("Veuillez rentrer deux fois le même mot de passe");
@@ -83,6 +129,7 @@ const Signup = ({ setConnected, token, url }) => {
       }
     } catch (error) {
       console.log(error.message);
+      console.log(error.response);
     }
   };
 
@@ -107,6 +154,7 @@ const Signup = ({ setConnected, token, url }) => {
           </div>
         </div>
         <form
+          autocomplete="off"
           className="right-part"
           onSubmit={(e) => {
             handleSubmit(e);
@@ -118,12 +166,14 @@ const Signup = ({ setConnected, token, url }) => {
             placeholder="Email..."
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autocomplete="off"
           />
           <input
             type="text"
             placeholder="Username..."
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autocomplete="off"
           />
           <div style={{ position: "relative" }}>
             <input
@@ -131,12 +181,14 @@ const Signup = ({ setConnected, token, url }) => {
               placeholder="Password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autocomplete="off"
             />
             <input
               type={!revealPassword ? "password" : "text"}
               placeholder="Confirm your password..."
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              autocomplete="off"
             />
             {!revealPassword ? (
               <FontAwesomeIcon

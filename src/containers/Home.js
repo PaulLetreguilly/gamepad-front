@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown";
 import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 import Cookies from "js-cookie";
+// import cors from "cors";
 
 const Home = ({
   url,
@@ -24,6 +25,10 @@ const Home = ({
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [array, setArray] = useState([]);
+  const [searchName, setSearchName] = useState([]);
+  const [display, setDisplay] = useState(false);
+  const [options, setOptions] = useState([]);
+  const wrapperRef = useRef(null);
 
   // const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
   // const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
@@ -35,6 +40,7 @@ const Home = ({
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter
   const [check, setCheck] = useState(false); // switch component state
+  const [refresh, setRefresh] = useState(false);
 
   const filter = {
     // sorting filter array
@@ -78,6 +84,19 @@ const Home = ({
         // }
         setData(response.data);
         setIsLoading(false);
+
+        const suggestions = [];
+        const promises = new Array(0);
+        response.data?.results.map((elem) => {
+          promises.push(elem);
+        });
+        Promise.all(promises).then((array) => {
+          return array.map((e) => {
+            suggestions.push(e.name);
+          });
+        });
+        console.log(suggestions);
+        setOptions(suggestions);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("fetch aborted");
@@ -119,16 +138,35 @@ const Home = ({
     fetchFilterGenre({ signal: AbortCont.signal });
   }, [search, page, limit, startFilters]);
 
-  const arr = [];
-  const autoComplete = () => {
-    // const arr = [...array];
-    data?.results.map((e, i) => {
-      const str = e.name.toLowerCase();
-      arr.push(str);
-    });
-    // setArray(arr);
+  // const handleSearch = (text) => {
+  //   let arr = [];
+  //   if (text.length > 0) {
+  //     data?.results.map((e, i) => {
+  //       const str = e.name.toLowerCase();
+  //       arr.push(str);
+  //     });
+  //   }
+  //   setArray(arr);
+  //   setSearch(text);
+  //   setSearchName(arr);
+  // };
+
+  const handleClick = (e) => {
+    setSearch(e);
+    setDisplay(false);
   };
-  search && autoComplete();
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const handleClickOutside = (event) => {
+    const { current: wrap } = wrapperRef;
+    if (wrap && !wrap.contains(event.target)) {
+      setDisplay(false);
+    }
+  };
 
   return isLoading ? (
     <div>Loading...</div>
@@ -138,11 +176,12 @@ const Home = ({
         <img
           src={pic}
           alt=""
-          style={{ width: "20vw", height: "14vh", objectFit: "contain" }}
+          style={{ width: "17rem", objectFit: "contain" }}
         />
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative" }} ref={wrapperRef}>
           <input
-            type="text"
+            // type="text"
+            id="auto"
             className="search-bar"
             placeholder="Search games..."
             value={search}
@@ -150,16 +189,37 @@ const Home = ({
               if (Cookies.get("search")) {
                 Cookies.remove("search");
               }
+              // handleSearch(e.target.value);
+
               setSearch(e.target.value);
-              setArray(arr);
+              setDisplay(true);
             }}
-            onBlur={() => {
-              setTimeout(() => {
-                setArray([]);
-              }, 200);
-            }}
+            onClick={() => setDisplay(!display)}
+            // onBlur={() => {
+            //   setTimeout(() => {
+            //     setArray([]);
+            //   }, 200);
+            // }}
           />
-          <div className={`auto-complete ${search ? "display" : "none"}`}>
+          {display && (
+            <div>
+              {options
+                .filter((str) => str.indexOf(search.toLowerCase()) > -1)
+                .map((elem, i) => {
+                  return (
+                    <div
+                      key={i}
+                      tabIndex="0"
+                      className="option"
+                      onClick={() => handleClick(elem)}
+                    >
+                      <span>{elem}</span>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+          {/* <div className={`auto-complete ${search ? "display" : "none"}`}>
             {array?.map((e, i) => {
               return (
                 <div
@@ -175,7 +235,7 @@ const Home = ({
                 </div>
               );
             })}
-          </div>
+          </div> */}
         </div>
 
         {search && <div>Search result for "{search}"</div>}
@@ -184,7 +244,7 @@ const Home = ({
       {search ? (
         <div className="filter-menu">
           <div className="left-menu">
-            <div style={{ width: "16vw", marginRight: "0.5vw" }}>
+            <div style={{ marginRight: "0.43rem" }}>
               <Dropdown
                 type={"Plateform"}
                 prompt={"All"}
@@ -205,7 +265,7 @@ const Home = ({
               option={platformList}
               onChange={(val) => setValuePlat(val)}
             /> */}
-            <div style={{ width: "14vw" }}>
+            <div>
               <Dropdown
                 type={"Type"}
                 prompt={"All"}
@@ -269,7 +329,7 @@ const Home = ({
                 <Switch check={check} setCheck={setCheck} />
               </div>
             </div>
-            <div style={{ width: "12vw", marginRight: "0.5vw" }}>
+            <div style={{ width: "12rem", marginRight: "0.5vw" }}>
               <Dropdown
                 type={"Sort by"}
                 prompt={"Default"}
