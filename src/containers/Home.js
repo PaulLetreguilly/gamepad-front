@@ -108,9 +108,7 @@ const Home = ({
     fetchData({ signal: AbortCont.signal });
     const fetchFilterPlat = async () => {
       try {
-        const platforms = await axios.get(
-          `https://api.rawg.io/api/platforms?key=c6ef0efe6d3541de832cc5356301f63d&page_size=51`
-        );
+        const platforms = await axios.get(`${url}/games/platforms`);
         setPlatformList(platforms.data);
       } catch (error) {
         if (error.name === "AbortError") {
@@ -123,9 +121,7 @@ const Home = ({
     fetchFilterPlat({ signal: AbortCont.signal });
     const fetchFilterGenre = async () => {
       try {
-        const genres = await axios.get(
-          `https://api.rawg.io/api/genres?key=c6ef0efe6d3541de832cc5356301f63d`
-        );
+        const genres = await axios.get(`${url}/games/genres`);
         setGenreList(genres.data);
       } catch (error) {
         if (error.name === "AbortError") {

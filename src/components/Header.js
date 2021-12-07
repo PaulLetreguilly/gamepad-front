@@ -28,7 +28,7 @@ const Header = ({
     <header>
       <div className="left-header">
         <Link to="/">
-          <img src={pic} alt="" />
+          <img src={pic} alt="logo-header" />
         </Link>
       </div>
       <div className="right-header">
