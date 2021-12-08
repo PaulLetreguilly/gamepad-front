@@ -16,14 +16,12 @@ const Game = ({ userId, token, url }) => {
   const navigate = useNavigate();
 
   const { slug } = useParams();
-  //   console.log(id);
   useEffect(() => {
     const abortCont = new AbortController();
 
     const fetchData = async () => {
       try {
         const response = await axios.get(`${url}/game/${slug}`);
-        // console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -38,7 +36,6 @@ const Game = ({ userId, token, url }) => {
     const fetchRelatedGames = async () => {
       try {
         const series = await axios.get(`${url}/game/series/${slug}`);
-        // console.log("related series ===> ", series.data);
         setRelated(series.data);
       } catch (error) {
         if (error.name === "AbortError") {
@@ -55,7 +52,6 @@ const Game = ({ userId, token, url }) => {
           params: { id: userId },
         });
         setUserData(response.data);
-        // console.log(response.data);
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("fetch aborted");
@@ -71,7 +67,6 @@ const Game = ({ userId, token, url }) => {
         const reviews = await axios.post(`${url}/game/reviews`, {
           slug,
         });
-        // console.log(reviews.data);
         setReviews(reviews.data);
       } catch (error) {
         if (error.name === "AbortError") {
@@ -87,7 +82,6 @@ const Game = ({ userId, token, url }) => {
     }
 
     return () => {
-      // console.log("clean up");
       abortCont.abort();
     };
   }, [slug, refresh, userId, reviewCheck]);
@@ -410,7 +404,7 @@ const Game = ({ userId, token, url }) => {
   return isLoading ? (
     <div>Loading...</div>
   ) : (
-    <section className="container">
+    <section className="container gamepage">
       <section className="contain">
         <section className="part-1">
           {/* <button onClick={() => navigate(-1)}>QUICK !! GO BACK !!!!!</button> */}
@@ -473,7 +467,7 @@ const Game = ({ userId, token, url }) => {
                 <span>
                   <div className="gray">Plateforms</div>
                   <div className="cont-data">
-                    {data.platforms.map((e, i) => {
+                    {data?.platforms.map((e, i) => {
                       return (
                         <div className="white" key={i}>
                           {i !== data.platforms.length - 1

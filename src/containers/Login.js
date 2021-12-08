@@ -132,13 +132,18 @@ const Login = ({ setConnected, token, url }) => {
           </div>
         </div>
         {forgotten ? (
-          <form className="right-part forget" onSubmit={handleForgotten}>
+          <form
+            className="right-part forget"
+            onSubmit={handleForgotten}
+            autoComplete="off"
+          >
             <span>so your forgot uh...</span>
             <input
               type="text"
               value={yourEmail}
               placeholder="Your email"
               onChange={(e) => setYourEmail(e.target.value)}
+              autoComplete="new-password"
             />
             <div style={{ width: "30vw" }}>
               <Dropdown
@@ -153,6 +158,7 @@ const Login = ({ setConnected, token, url }) => {
               type="text"
               placeholder="Your answer..."
               onChange={(e) => setAnswer(e.target.value)}
+              autoComplete="new-password"
             />
             <div className="contain-eye">
               <input
@@ -161,6 +167,7 @@ const Login = ({ setConnected, token, url }) => {
                 className="psw-input"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                autoComplete="new-password"
               />
               {!revealPassword ? (
                 <FontAwesomeIcon
@@ -182,6 +189,7 @@ const Login = ({ setConnected, token, url }) => {
               placeholder="confirm your password"
               onChange={(e) => setconfirmPassword(e.target.value)}
               value={confirmPassword}
+              autoComplete="new-password"
             />
 
             <div style={{ color: "red" }}>{error}</div>
@@ -195,7 +203,9 @@ const Login = ({ setConnected, token, url }) => {
                 setForgotten(false);
               }}
             >
-              WAIT !! I remember my password now...
+              <span className="span-text">
+                WAIT !! I remember my password now...
+              </span>
             </div>
           </form>
         ) : (
@@ -236,36 +246,14 @@ const Login = ({ setConnected, token, url }) => {
                 setForgotten(true);
               }}
             >
-              forgot your password ?
+              <span className="span-text">forgot your password ?</span>
             </div>
             <input type="submit" value="Connexion" />
             <Link to="/signup">
-              <span>Don't have an account yet?</span>
+              <span className="span-text">Don't have an account yet?</span>
             </Link>
           </form>
         )}
-        {/* <form onSubmit={handleSubmit} className="right-part">
-          <h3>Login</h3>
-          <input
-            type="email"
-            placeholder="Email..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password..."
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div className="forgot" onClick={() => setForgotten(true)}>
-            forgot your password ?
-          </div>
-          <input type="submit" value="Connexion" />
-          <Link to="/signup">
-            <span>Don't have an account yet?</span>
-          </Link>
-        </form> */}
       </section>
     </section>
   );

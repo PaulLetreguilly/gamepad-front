@@ -125,7 +125,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
           <button onClick={() => navigate(-1)}>Go back</button>
         </div>
         <form
-          autocomplete="off"
+          autoComplete="off"
           onSubmit={(e) => handleSubmit(e)}
           className="right-part"
         >
@@ -135,14 +135,14 @@ const Profile = ({ token, userId, setConnected, url }) => {
             value={username}
             placeholder={data?.username}
             onChange={(e) => setUsername(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
           />
           <input
             type="email"
             value={email}
             placeholder={data?.email}
             onChange={(e) => setEmail(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
           />
 
           <div className="contain-eye">
@@ -151,7 +151,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
               value={password}
               placeholder="new password"
               onChange={(e) => setPassword(e.target.value)}
-              autocomplete="off"
+              autoComplete="off"
             />
             {!revealPassword ? (
               <FontAwesomeIcon
@@ -172,7 +172,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
             value={confirmPassword}
             placeholder="confirm password"
             onChange={(e) => setConfirmPassword(e.target.value)}
-            autocomplete="off"
+            autoComplete="off"
           />
 
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />

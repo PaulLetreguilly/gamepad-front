@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 const Switch = ({ setCheck, check }) => {
   //   const [check, setCheck] = useState(false);

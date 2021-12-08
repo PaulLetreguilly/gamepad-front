@@ -154,7 +154,7 @@ const Signup = ({ setConnected, token, url }) => {
           </div>
         </div>
         <form
-          autocomplete="off"
+          autoComplete="off"
           className="right-part"
           onSubmit={(e) => {
             handleSubmit(e);
@@ -166,14 +166,14 @@ const Signup = ({ setConnected, token, url }) => {
             placeholder="Email..."
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autocomplete="off"
+            autoComplete="new-password"
           />
           <input
             type="text"
             placeholder="Username..."
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            autocomplete="off"
+            autoComplete="new-password"
           />
           <div style={{ position: "relative" }}>
             <input
@@ -181,14 +181,14 @@ const Signup = ({ setConnected, token, url }) => {
               placeholder="Password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autocomplete="off"
+              autoComplete="new-password"
             />
             <input
               type={!revealPassword ? "password" : "text"}
               placeholder="Confirm your password..."
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              autocomplete="off"
+              autoComplete="new-password"
             />
             {!revealPassword ? (
               <FontAwesomeIcon
@@ -218,13 +218,14 @@ const Signup = ({ setConnected, token, url }) => {
             placeholder="Answer..."
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
+            autoComplete="new-password"
           />
           <input
             // disabled="false"
             type="file"
             name="file"
             id="file"
-            class="inputfile"
+            className="inputfile"
             onChange={(e) => setFile(e.target.files[0])}
             // value={file}
           />
@@ -233,7 +234,7 @@ const Signup = ({ setConnected, token, url }) => {
           </label> */}
           <input type="submit" value="S'inscrire" />
           <Link to="/login">
-            <span>Already have an account?</span>
+            <span className="span-text">Already have an account?</span>
           </Link>
         </form>
       </section>

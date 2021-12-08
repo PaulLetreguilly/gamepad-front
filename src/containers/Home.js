@@ -5,7 +5,6 @@ import Dropdown from "../components/Dropdown";
 import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 import Cookies from "js-cookie";
-// import cors from "cors";
 
 const Home = ({
   url,
@@ -24,23 +23,15 @@ const Home = ({
 }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [array, setArray] = useState([]);
-  const [searchName, setSearchName] = useState([]);
-  const [display, setDisplay] = useState(false);
-  const [options, setOptions] = useState([]);
+
+  const [display, setDisplay] = useState(false); // to display /hide the autocomplete part of search bar
+  const [options, setOptions] = useState([]); // data used for autocomplete part
   const wrapperRef = useRef(null);
 
-  // const [search, setSearch] = useState(Cookies.get("search") || ""); // search bar input
-  // const [page, setPage] = useState(Cookies.get("page") || 1); // pagination at the bottom
-  // const [limit, setLimit] = useState(Cookies.get("limit") || 20); // number of games loaded in the page, can change => next to pagination (button load more)
-  // const [valuePlat, setValuePlat] = useState(Cookies.get("platform") || null); // platform filter
-  // const [valueGenre, setValueGenre] = useState(Cookies.get("genre") || null); //game genre filter
-  // const [value, setValue] = useState(Cookies.get("sort") || null); // sorting filter
   const [startFilters, setStartFilters] = useState(false); // button that starts filters
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter
   const [check, setCheck] = useState(false); // switch component state
-  const [refresh, setRefresh] = useState(false);
 
   const filter = {
     // sorting filter array
@@ -49,8 +40,10 @@ const Home = ({
 
   const navigate = useNavigate();
 
+  const sugg = [];
+
   useEffect(() => {
-    const AbortCont = new AbortController();
+    const AbortCont = new AbortController(); // used to stop fetching datas when switching pages
     const fetchData = async () => {
       try {
         let body = {};
@@ -64,6 +57,7 @@ const Home = ({
           body.page_size = limit;
         }
         if (value) {
+          // sorting by ascending or descending order with check state
           if (!check) {
             body.sort = value.name;
           } else {
@@ -79,24 +73,17 @@ const Home = ({
         const response = await axios.get(`${url}/games`, {
           params: body,
         });
-        // if (Cookies.get("search")) {
-        //   console.log(Cookies.get("search"));
-        // }
         setData(response.data);
         setIsLoading(false);
 
-        const suggestions = [];
-        const promises = new Array(0);
+        const promises = new Array(0); // register the names of the games found for the autocomplete part of the search bar
         response.data?.results.map((elem) => {
           promises.push(elem);
         });
-        Promise.all(promises).then((array) => {
-          return array.map((e) => {
-            suggestions.push(e.name);
-          });
+        promises.map((game) => {
+          sugg.push(game.name);
         });
-        console.log(suggestions);
-        setOptions(suggestions);
+        setOptions(sugg); // data used for the autocomplete part of the search bar
       } catch (error) {
         if (error.name === "AbortError") {
           console.log("fetch aborted");
@@ -106,7 +93,9 @@ const Home = ({
       }
     };
     fetchData({ signal: AbortCont.signal });
+
     const fetchFilterPlat = async () => {
+      // for platform filter under search bar
       try {
         const platforms = await axios.get(`${url}/games/platforms`);
         setPlatformList(platforms.data);
@@ -119,7 +108,9 @@ const Home = ({
       }
     };
     fetchFilterPlat({ signal: AbortCont.signal });
+
     const fetchFilterGenre = async () => {
+      // for genre filter under search bar
       try {
         const genres = await axios.get(`${url}/games/genres`);
         setGenreList(genres.data);
@@ -132,25 +123,19 @@ const Home = ({
       }
     };
     fetchFilterGenre({ signal: AbortCont.signal });
+
+    return () => {
+      AbortCont.abort();
+    };
   }, [search, page, limit, startFilters]);
 
-  // const handleSearch = (text) => {
-  //   let arr = [];
-  //   if (text.length > 0) {
-  //     data?.results.map((e, i) => {
-  //       const str = e.name.toLowerCase();
-  //       arr.push(str);
-  //     });
-  //   }
-  //   setArray(arr);
-  //   setSearch(text);
-  //   setSearchName(arr);
-  // };
-
+  // when clicking in the autocomplete search to select a game
   const handleClick = (e) => {
     setSearch(e);
     setDisplay(false);
   };
+
+  // to close the autocomplete search part when clicking outside
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -163,6 +148,11 @@ const Home = ({
       setDisplay(false);
     }
   };
+
+  // when changing page, go back to the top of the screen
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
 
   return isLoading ? (
     <div>Loading...</div>
@@ -177,7 +167,7 @@ const Home = ({
         <div style={{ position: "relative" }} ref={wrapperRef}>
           <input
             // type="text"
-            id="auto"
+            // id="auto"
             className="search-bar"
             placeholder="Search games..."
             value={search}
@@ -185,28 +175,33 @@ const Home = ({
               if (Cookies.get("search")) {
                 Cookies.remove("search");
               }
-              // handleSearch(e.target.value);
 
               setSearch(e.target.value);
-              setDisplay(true);
+              // if (e.target.value === "") {
+              //   setDisplay(false);
+              // }
+              if (!display) {
+                setDisplay(true);
+              }
             }}
-            onClick={() => setDisplay(!display)}
-            // onBlur={() => {
-            //   setTimeout(() => {
-            //     setArray([]);
-            //   }, 200);
-            // }}
+            onClick={() => {
+              if (search || display) {
+                setDisplay(!display);
+              }
+            }}
           />
           {display && (
-            <div>
+            <div className="autoContainer">
+              {/* {console.log("test : ", options)} */}
               {options
-                .filter((str) => str.indexOf(search.toLowerCase()) > -1)
+                // .filter((str) => str.indexOf(search.toLowerCase()) > -1)
                 .map((elem, i) => {
                   return (
                     <div
                       key={i}
                       tabIndex="0"
-                      className="option"
+                      // className="option"
+                      className="autoOption"
                       onClick={() => handleClick(elem)}
                     >
                       <span>{elem}</span>
@@ -215,27 +210,12 @@ const Home = ({
                 })}
             </div>
           )}
-          {/* <div className={`auto-complete ${search ? "display" : "none"}`}>
-            {array?.map((e, i) => {
-              return (
-                <div
-                  key={i}
-                  className="result-auto-comp"
-                  onClick={() => {
-                    // console.log(e);
-                    setSearch(e);
-                    setArray([]);
-                  }}
-                >
-                  {e}
-                </div>
-              );
-            })}
-          </div> */}
         </div>
 
         {search && <div>Search result for "{search}"</div>}
-        <div style={{ margin: "0.5vw 0 2vw 0" }}>{data.count} games</div>
+        <div style={{ margin: "0.5vw 0 2vw 0", fontSize: "1.4vw" }}>
+          {data.count} games
+        </div>
       </div>
       {search ? (
         <div className="filter-menu">
@@ -254,13 +234,6 @@ const Home = ({
                 }}
               />
             </div>
-            {/* <Dropdown
-              type={"Plateform"}
-              prompt={"All"}
-              value={valuePlat}
-              option={platformList}
-              onChange={(val) => setValuePlat(val)}
-            /> */}
             <div>
               <Dropdown
                 type={"Type"}
@@ -275,13 +248,6 @@ const Home = ({
                 }}
               />
             </div>
-            {/* <Dropdown
-              type={"Type"}
-              prompt={"All"}
-              value={valueGenre}
-              option={genreList}
-              onChange={(val) => setValueGenre(val)}
-            /> */}
           </div>
           <div
             className="btn-clear"
@@ -321,11 +287,11 @@ const Home = ({
               ) : (
                 <span className="white">Décroissant</span>
               )}
-              <div style={{ margin: "0 2rem" }}>
+              <div style={{ margin: "0 0.4vw" }}>
                 <Switch check={check} setCheck={setCheck} />
               </div>
             </div>
-            <div style={{ width: "12rem", marginRight: "0.5vw" }}>
+            <div style={{ marginRight: "0.5vw" }}>
               <Dropdown
                 type={"Sort by"}
                 prompt={"Default"}
@@ -339,13 +305,6 @@ const Home = ({
                 }}
               />
             </div>
-            {/* <Dropdown
-              type={"Sort by"}
-              prompt={"Default"}
-              value={value}
-              option={filter}
-              onChange={(val) => setValue(val)}
-            /> */}
             <button
               className="btn-filters"
               onClick={() => {

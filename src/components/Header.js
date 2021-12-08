@@ -21,7 +21,7 @@ const Header = ({
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(location.pathname);
-  console.log(userImage);
+  // console.log(userImage);
   useEffect(() => {}, [userImage]);
 
   return (

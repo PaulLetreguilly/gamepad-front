@@ -80,10 +80,10 @@ header div img {
   width: 1.3rem;
   height: 1.3rem;
   /* object-fit: cover; */
-  margin: 0 0.43rem;
+  margin: 0 0.5vw;
 }
 .profile {
-  font-size: 0.86rem;
+  font-size: 1vw;
   width: 4rem;
   background-color: gray;
   padding: 0.17rem 0.86rem;
@@ -130,43 +130,35 @@ header div img {
 }
 
 .search-bar {
-  width: 18rem;
-  margin: 0.86rem 0;
-  padding: 0.43rem 0.43rem;
+  width: 20vw;
+  margin: 1vw 0;
+  padding: 0.5vw 0.5vw;
 }
-.auto-complete {
+.autoContainer {
   background-color: #1f2023;
-  /* background-color: pink; */
-  color: black;
-  position: absolute;
-  top: 3.25rem;
-  left: 0;
-  width: 22.36rem;
-  height: 6rem;
+  width: 21.2vw;
+  height: 15vh;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  position: absolute;
+  top: 3.2rem;
+  left: 0;
 }
-.display:hover {
-  cursor: pointer;
-}
-.container .search .result-auto-comp {
+.autoOption {
   width: 100%;
   padding: 0.4rem 0;
-  /* background-color: #1f2023; */
-  border-bottom: 0.0625rem solid white !important;
-  border-right: 0.0625rem solid white !important;
-  border-left: 0.0625rem solid white !important;
+  border-bottom: 0.0625rem solid white;
+  border-right: 0.0625rem solid white;
+  border-left: 0.0625rem solid white;
 }
-.result-auto-comp:hover {
-  /* opacity: 0.5; */
+.autoOption:hover {
   background-color: white;
   color: black;
+  cursor: pointer;
 }
-.auto-complete::-webkit-scrollbar {
+
+.autoContainer::-webkit-scrollbar {
   display: none;
 }
 .none {
@@ -194,7 +186,7 @@ header div img {
 .right-menu {
   display: flex;
   flex-direction: row;
-  margin: 0 1.3rem;
+  margin: 0 1.5vw;
   /* background-color: pink; */
 }
 .right-menu {
@@ -202,7 +194,7 @@ header div img {
 }
 .btn-clear {
   color: #74d963;
-  padding: 0.43rem 0;
+  padding: 0.5vw 0;
   /* background-color: pink; */
   /* z-index: 100; */
 }
@@ -230,8 +222,8 @@ header div img {
   margin-top: 0.3rem;
   position: absolute;
   /* right: 10px; */
-  right: 0.625rem;
-  top: 0.7rem;
+  right: 5%;
+  top: 35%;
   width: 0;
 }
 
@@ -241,7 +233,7 @@ header div img {
 }
 
 .dropdown .selected-value {
-  line-height: 1;
+  line-height: 1vw;
   font-size: 1rem;
   /* background-color: #fff; */
   background-color: #333;
@@ -250,24 +242,25 @@ header div img {
   box-sizing: border-box;
   cursor: default;
   outline: none;
-  padding: 0.5rem 3.25rem 0.5rem 0.625rem;
+  padding: 0.7vw 4vw 0.7vw 0.8vw;
   transition: all 200ms ease;
-  width: 100%;
+  /* width: 100%; */
+  font-size: 1.2vw;
 }
 
 .dropdown .options {
   display: none;
   /* background-color: #fff; */
   background-color: #333;
-  border: 0.0625rem solid #ccc;
-  border-radius: 1rem;
-  box-shadow: 0 0.0625rem 0 rgba(0, 0, 0, 0.06);
+  border: 0.1vw solid #ccc;
+  border-radius: 0.1vw;
+  box-shadow: 0 0.1vw 0 rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
-  margin-top: -0.0625rem;
-  max-height: 12.5rem;
+  margin-top: -0.8vw;
+  max-height: 15vw;
   overflow-y: auto;
   position: absolute;
-  top: 100%;
+  top: 120%;
   width: 100%;
   z-index: 1000;
   -webkit-overflow-scrolling: touch;
@@ -288,7 +281,7 @@ header div img {
   color: white;
   cursor: pointer;
   display: block;
-  padding: 0.5rem 0.625rem;
+  padding: 0.5vw 0.8vw;
 }
 
 .dropdown .option .selected,
@@ -301,8 +294,9 @@ header div img {
   background-color: #fe4555;
   color: white;
   border: none;
-  border-radius: 0.3rem;
-  height: 2rem;
+  border-radius: 0.4vw;
+  height: 3vw;
+  font-size: 1.2vw;
 }
 .btn-filters:hover {
   cursor: pointer;
@@ -313,10 +307,13 @@ header div img {
 /* ---------- */
 
 h1 {
+  font-size: 2vw;
   margin-left: 10vw;
   color: white;
 }
-
+.game h2 {
+  font-size: 1.8vw;
+}
 .contain {
   width: 80vw;
   margin: 0 auto;
@@ -327,7 +324,7 @@ h1 {
   width: 14vw;
   height: 20vw;
   position: relative;
-  margin: 0.43rem 0.86rem;
+  margin: 0.5vw 1vw;
 }
 .game:hover {
   opacity: 0.8;
@@ -440,14 +437,14 @@ input:checked + .slider:before {
 }
 
 .slider.round {
-  border-radius: 2.125rem;
+  border-radius: 10vw;
 }
 
 .slider.round:before {
   border-radius: 50%;
 }
 .btn-forgotten {
-  margin-top: 0.86rem;
+  margin-top: 1vw;
 }
 .btn-forgotten:hover {
   cursor: pointer;
@@ -455,16 +452,19 @@ input:checked + .slider:before {
 }
 .forget input:not([type="submit"]) {
   /* background-color: green; */
-  width: 26rem;
+  width: 30vw;
 }
 /* ---- *********** ---- */
 
 /*-------- ********** --------*/
 /************ GAME ************/
 /*-------- ********** --------*/
+.gamepage {
+  font-size: 1.2vw;
+}
 
 .poster .f12 {
-  font-size: 8 !important;
+  /* font-size: 8px; */
 }
 
 .gray {
@@ -508,6 +508,7 @@ input:checked + .slider:before {
   padding: 0.5vh 0.5vw;
   color: white;
   background-color: #1f2023;
+  font-size: 1.2vw;
 }
 .btn-collection:hover,
 .btn-review:hover {
@@ -604,7 +605,7 @@ input:checked + .slider:before {
 .btn-dislike {
   margin-right: 0.5vw;
   border: none;
-  font-size: 0.8vw;
+  font-size: 0.9vw;
   border-radius: 1vw;
   background-color: #2a2b2e;
   color: white;
@@ -712,13 +713,20 @@ input:checked + .slider:before {
   left: 0.5rem;
 }
 .left-part .text {
-  width: 17rem;
-  margin: 1.3rem 0;
+  width: 25vw;
+  margin: 1.5vw 0;
   padding: 0 0;
   /* background-color: thistle; */
+  font-size: 1.5vw;
+}
+.left-part h3 {
+  font-size: 2vw;
 }
 .text .connect-icon {
-  padding: 0 0.43rem;
+  padding: 0 0.5vw;
+}
+.span-text {
+  font-size: 1.3vw !important;
 }
 .right-part {
   display: flex;
@@ -730,13 +738,13 @@ input:checked + .slider:before {
 }
 .right-part > input {
   width: 20vw;
-  margin: 0.4rem 0;
-  padding: 0.4rem 0.43rem;
+  margin: 0.5vw 0;
+  padding: 0.5vw 0.5vw;
 }
 .right-part > div > input {
   width: 9.2vw;
-  margin: 0.4rem 0;
-  padding: 0.4rem 0.43rem;
+  margin: 0.5vw 0;
+  padding: 0.5vw 0.58vw;
 }
 .right-part > div > input:last-child {
   margin-left: 0.43rem;
@@ -804,7 +812,7 @@ form input[type="submit"]:hover {
   width: 20vw;
 }
 .contain .right-part .contain-eye .psw-input {
-  width: 26rem;
+  width: 30vw;
 }
 .eye-update {
   position: absolute;
@@ -917,4 +925,20 @@ footer {
 footer a {
   text-decoration: none;
   color: #fe4555;
+}
+
+/* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+/* $$$$$$$$$  MEDIA  $$$$$$$$$$$ */
+/* $$$$$$$$  QUERIES  $$$$$$$$$$ */
+/* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
+
+@media (min-width: "1441px") {
+}
+@media (min-width: "1025px") and (max-width: "1440px") {
+}
+@media (min-width: "769px") and (max-width: "1024px") {
+}
+@media (min-width: "421px") and (max-width: "768px") {
+}
+@media (max-width: "420px") {
 }
