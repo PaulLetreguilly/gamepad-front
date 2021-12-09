@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const Comments = ({ url, review, token, setRefresh, refresh }) => {
   const [display, setDisplay] = useState(false);
@@ -7,6 +8,8 @@ const Comments = ({ url, review, token, setRefresh, refresh }) => {
   const [message, setMessage] = useState("");
   const [displayForm, setDisplayForm] = useState(false);
   //   const [refresh, setRefresh] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const abortCont = new AbortController();
@@ -35,25 +38,29 @@ const Comments = ({ url, review, token, setRefresh, refresh }) => {
   //     setDisplayForm(true);
   //   };
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const addComment = await axios.post(
-        `${url}/review/${review._id}/comments`,
-        {
-          message: message,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
+    if (token) {
+      try {
+        e.preventDefault();
+        const addComment = await axios.post(
+          `${url}/review/${review._id}/comments`,
+          {
+            message: message,
           },
-        }
-      );
-      console.log(addComment.data);
-      //   alert("comment created");
-      setDisplayForm(false);
-      setRefresh(!refresh);
-    } catch (error) {
-      console.log(error.message);
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        console.log(addComment.data);
+        //   alert("comment created");
+        setDisplayForm(false);
+        setRefresh(!refresh);
+      } catch (error) {
+        console.log(error.message);
+      }
+    } else {
+      navigate("/login");
     }
   };
 

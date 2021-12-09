@@ -696,14 +696,21 @@ input:checked + .slider:before {
 }
 .favorites {
   display: flex;
+  flex-wrap: wrap;
+}
+.btn-collec-back {
+  margin: 0 1vw;
 }
 .favorite {
   position: relative;
+  width: 18vw;
+  margin: 1vw 1vw;
 }
 .favorite span {
   position: absolute;
-  top: 8.5vw;
+  top: 8vw;
   left: 5vw;
+  width: 10vw;
   z-index: 300;
   color: white;
 }
@@ -712,7 +719,7 @@ input:checked + .slider:before {
   color: red;
 }
 .favorite img {
-  width: 20vw;
+  width: 100%;
   height: 10vw;
   position: relative;
   object-fit: cover;
@@ -826,7 +833,7 @@ form input[type="submit"]:hover {
 }
 .eye-login {
   position: absolute;
-  top: 50%;
+  top: 48.5%;
   right: 25%;
   color: black;
 }

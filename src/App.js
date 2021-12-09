@@ -54,7 +54,7 @@ function App() {
   const url = "https://my-gamepad.herokuapp.com";
   // use this const to switch from local to online server once deployed on heroku
 
-  useEffect(() => {}, [userImage]);
+  // useEffect(() => {}, [userImage]);
 
   const setConnected = (token, userId, userImage, username) => {
     if (token && userId) {

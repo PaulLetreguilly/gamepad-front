@@ -45,6 +45,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      setError("");
       const formData = new FormData();
       //   formData.append("id", userId);
       if (username) {

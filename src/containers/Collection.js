@@ -69,7 +69,12 @@ const Collection = ({ userId, token, url }) => {
     <div>Loading...</div>
   ) : (
     <section className="container collection">
-      <button onClick={() => navigate(-1)}>Go back</button>
+      <button onClick={() => navigate(-1)} className="btn-collec-back">
+        Go back
+      </button>
+      <span style={{ color: "white", marginLeft: "40vw" }}>
+        number of games saved : {data.Collection?.length}
+      </span>
       <div className="favorites">
         {data.Collection.map((elem) => {
           return (
