@@ -567,10 +567,47 @@ input:checked + .slider:before {
 .reviews {
   margin: 1vh 0;
   /* height: 20vh; */
-  background-color: #2a2b2e;
   color: white;
   display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+.reviews .review-part {
+  background-color: #2a2b2e;
+  display: flex;
   justify-content: space-between;
+}
+
+.comments {
+  background-color: #2a2b2e;
+  width: 100%;
+  font-size: 0.8vw;
+}
+.comments .comment {
+  background-color: #595b63;
+  margin: 0.2vw 0;
+}
+.comment-msg {
+  border-top: 0.1vw solid white;
+  border-bottom: 0.1vw solid white;
+  padding: 0.4vw 0;
+}
+.add-comment:hover,
+.cancel-comment:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+.input-comment {
+  width: 30vw;
+  /* height: 1vw; */
+  padding: 0.2vw 0.4vw;
+}
+.comments form {
+  margin: 0.5vw 0;
+  /* background-color: #595b63; */
+}
+.comments form input[type="submit"] {
+  margin-left: 0.5vw;
 }
 .reviews-left {
   /* background-color: pink; */
@@ -641,6 +678,16 @@ input:checked + .slider:before {
   margin-bottom: 0.5vh;
   margin-right: 1vw;
 }
+.btn-comments {
+  color: white;
+  font-size: 0.9vw;
+  /* background-color: pink; */
+  width: 10vw !important;
+}
+.btn-comments:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
 /*-------- ********** --------*/
 /*-------- COLLECTION --------*/
 /*-------- ********** --------*/
@@ -685,6 +732,7 @@ input:checked + .slider:before {
 /*--------   LOG IN   --------*/
 /*--------   SIGN UP  --------*/
 /*-------- ********** --------*/
+
 .connect {
   height: 60vh;
   /* background-color: teal; */
@@ -938,7 +986,13 @@ footer a {
 }
 @media (min-width: "769px") and (max-width: "1024px") {
 }
-@media (min-width: "421px") and (max-width: "768px") {
+@media (min-width: "426px") and (max-width: "768px") {
 }
-@media (max-width: "420px") {
+@media (max-width: "425px") {
+  header div img {
+    width: 5rem;
+  }
+  .connect .left-part {
+    display: none;
+  }
 }

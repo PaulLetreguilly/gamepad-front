@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Comments from "../components/Comments";
 
 const Game = ({ userId, token, url }) => {
   const [data, setData] = useState();
@@ -572,80 +573,80 @@ const Game = ({ userId, token, url }) => {
               const totalLikes = review.like.length - review.dislike.length;
               return (
                 <div key={review._id} className="reviews">
-                  <section className="reviews-left">
-                    <h4>{review.title}</h4>
-                    <p>{review.description}</p>
-                    <div>
-                      {review.user.image && (
-                        <img
-                          src={review.user.image?.secure_url}
-                          alt=""
-                          className="user-pic"
-                        />
-                      )}
-                      {review.user.username}
-                    </div>
-                  </section>
-                  <section className="reviews-right">
-                    <div>
-                      <button
-                        onClick={() => {
-                          if (token) {
-                            handleLike(review);
-                          } else {
-                            navigate("/login");
-                          }
-                        }}
-                        className={`btn-like ${
-                          checkLike(review) ? "like" : null
-                        }`}
-                      >
-                        like
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (token) {
-                            handleDislike(review);
-                          } else {
-                            navigate("/login");
-                          }
-                        }}
-                        className={`btn-dislike ${
-                          checkDislike(review) ? "dislike" : null
-                        }`}
-                      >
-                        dislike
-                      </button>
-                    </div>
-                    <div>
-                      {totalLikes > 0 ? (
-                        <FontAwesomeIcon
-                          className="positive"
-                          icon="thumbs-up"
-                        />
-                      ) : totalLikes === 0 ? (
-                        <FontAwesomeIcon className="neutral" icon="thumbs-up" />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="negative"
-                          icon="thumbs-down"
-                        />
-                      )}
-                      {totalLikes}
-                    </div>
-                  </section>
-
-                  {/* {user.image && <img src={user.image} alt="" />} */}
-
-                  {/* {review.user._id === userId && (
-                    <button
-                      onClick={() =>
-                        alert("Delete option coming soon...(on progress)")
-                      }
-                    >
-                      delete
-                    </button>
-                  )} */}
+                  <div className="review-part">
+                    <section className="reviews-left">
+                      <h4>{review.title}</h4>
+                      <p>{review.description}</p>
+                      <div>
+                        {review.user.image && (
+                          <img
+                            src={review.user.image?.secure_url}
+                            alt=""
+                            className="user-pic"
+                          />
+                        )}
+                        {review.user.username}
+                      </div>
+                    </section>
+                    <section className="reviews-right">
+                      <div>
+                        <button
+                          onClick={() => {
+                            if (token) {
+                              handleLike(review);
+                            } else {
+                              navigate("/login");
+                            }
+                          }}
+                          className={`btn-like ${
+                            checkLike(review) ? "like" : null
+                          }`}
+                        >
+                          like
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (token) {
+                              handleDislike(review);
+                            } else {
+                              navigate("/login");
+                            }
+                          }}
+                          className={`btn-dislike ${
+                            checkDislike(review) ? "dislike" : null
+                          }`}
+                        >
+                          dislike
+                        </button>
+                      </div>
+                      <div>
+                        {totalLikes > 0 ? (
+                          <FontAwesomeIcon
+                            className="positive"
+                            icon="thumbs-up"
+                          />
+                        ) : totalLikes === 0 ? (
+                          <FontAwesomeIcon
+                            className="neutral"
+                            icon="thumbs-up"
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            className="negative"
+                            icon="thumbs-down"
+                          />
+                        )}
+                        {totalLikes}
+                      </div>
+                    </section>
+                  </div>
+                  <Comments
+                    review={review}
+                    url={url}
+                    token={token}
+                    setRefresh={setRefresh}
+                    refresh={refresh}
+                  />
                 </div>
               );
             })}
