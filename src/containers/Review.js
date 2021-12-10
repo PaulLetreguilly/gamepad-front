@@ -61,7 +61,7 @@ const Review = ({ token, url }) => {
   };
 
   return isLoading ? (
-    <div>Loading...</div>
+    <div className="white">Loading...</div>
   ) : (
     <section className="container">
       <section className="contain review">

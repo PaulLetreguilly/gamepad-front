@@ -95,12 +95,12 @@ const Profile = ({ token, userId, setConnected, url }) => {
   };
 
   return isLoading ? (
-    <div>Loading...</div>
+    <div className="white">Loading...</div>
   ) : (
     <section className="container profile-page">
       <section className="contain connect">
         <div className="left-part">
-          <div className="ft-size">display userData (coming soon...)</div>
+          <div className="ft-size">userData</div>
           <div className="ft-size">
             <span className="red">username : </span>
             {data?.username}
@@ -109,8 +109,6 @@ const Profile = ({ token, userId, setConnected, url }) => {
             <span className="red">email : </span>
             {data?.email}
           </div>
-          {/* <div>{data.username}</div> */}
-          {/* <div></div> */}
           {data?.image && (
             <img
               src={data?.image.secure_url}
@@ -120,10 +118,13 @@ const Profile = ({ token, userId, setConnected, url }) => {
                 height: "10vw",
                 borderRadius: "50%",
                 objectFit: "cover",
+                margin: "1vw 0 0.5vw 0",
               }}
             />
           )}
-          <button onClick={() => navigate(-1)}>Go back</button>
+          <button onClick={() => navigate(-1)} className="btn-collec-back">
+            Go back
+          </button>
         </div>
         <form
           autoComplete="off"

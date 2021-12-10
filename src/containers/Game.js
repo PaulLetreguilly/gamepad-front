@@ -403,7 +403,7 @@ const Game = ({ userId, token, url }) => {
   };
 
   return isLoading ? (
-    <div>Loading...</div>
+    <div className="white">Loading...</div>
   ) : (
     <section className="container gamepage">
       <section className="contain">

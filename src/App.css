@@ -5,8 +5,15 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #1f2023;
 }
+/* .profile-page .connect .left-part {
+  align-items: flex-start;
+}
+.profile-page .connect .left-part > div {
+  margin: 0 auto;
+} */
 .ft-size {
-  font-size: 1rem;
+  font-size: 0.9vw;
+  margin: 0.5vw 0;
 }
 /*-------- ********** --------*/
 /*********** HEADER ***********/
@@ -251,12 +258,12 @@ header div img {
 }
 
 .dropdown .selected-value {
-  line-height: 1vw;
+  line-height: 0.7;
   font-size: 1rem;
   /* background-color: #fff; */
   background-color: #333;
   border: 0.0625rem solid #ccc;
-  border-radius: 1.5rem;
+  border-radius: 0.9rem;
   box-sizing: border-box;
   cursor: default;
   outline: none;
@@ -404,8 +411,8 @@ h2 {
 .switch {
   position: relative;
   display: inline-block;
-  width: 3.25rem;
-  height: 1.25rem;
+  width: 2.6vw;
+  height: 1.05vw;
 }
 
 /* Hide default HTML checkbox */
@@ -718,6 +725,11 @@ input:checked + .slider:before {
 }
 .btn-collec-back {
   margin: 0 1vw;
+  padding: 0.2vw 0.2vw;
+  color: white;
+  background-color: #fe4555;
+  border: none;
+  border-radius: 7%;
 }
 .favorite {
   position: relative;
@@ -875,7 +887,7 @@ form input[type="submit"]:hover {
 }
 .eye-sign {
   position: absolute;
-  top: 33%;
+  top: 38%;
   right: 53%;
   color: black;
   z-index: 2;

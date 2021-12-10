@@ -233,7 +233,7 @@ const Signup = ({ setConnected, token, url }) => {
             Choose a file
           </label> */}
           <input type="submit" value="S'inscrire" />
-          <Link to="/login">
+          <Link to="/login" style={{ textDecoration: "none" }}>
             <span className="span-text">Already have an account?</span>
           </Link>
         </form>

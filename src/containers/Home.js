@@ -156,7 +156,7 @@ const Home = ({
   }, [page]);
 
   return isLoading ? (
-    <div>Loading...</div>
+    <div className="white">Loading...</div>
   ) : (
     <section className="container">
       <div className="search">

@@ -270,7 +270,7 @@ const Login = ({ setConnected, token, url }) => {
               <span className="span-text">forgot your password ?</span>
             </div>
             <input type="submit" value="Connexion" />
-            <Link to="/signup">
+            <Link to="/signup" style={{ textDecoration: "none" }}>
               <span className="span-text">Don't have an account yet?</span>
             </Link>
           </form>

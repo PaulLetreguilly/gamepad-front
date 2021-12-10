@@ -66,7 +66,7 @@ const Collection = ({ userId, token, url }) => {
   };
 
   return isLoading ? (
-    <div>Loading...</div>
+    <div className="white">Loading...</div>
   ) : (
     <section className="container collection">
       <button onClick={() => navigate(-1)} className="btn-collec-back">
