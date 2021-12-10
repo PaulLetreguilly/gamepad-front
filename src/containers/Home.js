@@ -5,6 +5,7 @@ import Dropdown from "../components/Dropdown";
 import Switch from "../components/Switch";
 import pic from "../assets/logo.png";
 import Cookies from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = ({
   url,
@@ -159,11 +160,7 @@ const Home = ({
   ) : (
     <section className="container">
       <div className="search">
-        <img
-          src={pic}
-          alt=""
-          style={{ width: "17rem", objectFit: "contain" }}
-        />
+        <img src={pic} alt="" style={{ width: "25vw", objectFit: "contain" }} />
         <div style={{ position: "relative" }} ref={wrapperRef}>
           <input
             // type="text"
@@ -190,6 +187,7 @@ const Home = ({
               }
             }}
           />
+          <FontAwesomeIcon icon="search" className="search-icon" />
           {display && (
             <div className="autoContainer">
               {/* {console.log("test : ", options)} */}

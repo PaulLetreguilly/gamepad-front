@@ -27,12 +27,15 @@ header div img {
   /* height: 100rem; */
   object-fit: contain;
 }
+/* header .right-header .user-image{
+
+} */
 .right-header {
   display: flex;
   align-items: center;
 }
 .right-header div {
-  margin-right: 1rem;
+  margin-right: 1vw;
 }
 .log-out {
   color: white;
@@ -63,6 +66,11 @@ header div img {
 .user:hover {
   cursor: pointer;
 }
+.header-username,
+.header-collection,
+.header-login {
+  font-size: 1.2vw;
+}
 .user-block {
   width: 8.6rem;
   height: 6.9rem;
@@ -77,9 +85,9 @@ header div img {
   z-index: 1200;
 }
 .right-header .user .user-image {
-  width: 1.3rem;
-  height: 1.3rem;
-  /* object-fit: cover; */
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: cover;
   margin: 0 0.5vw;
 }
 .profile {
@@ -132,7 +140,17 @@ header div img {
 .search-bar {
   width: 20vw;
   margin: 1vw 0;
-  padding: 0.5vw 0.5vw;
+  padding: 0.8vw 0.8vw;
+  border-radius: 0.3vw;
+  border: none;
+}
+.search-icon {
+  position: absolute;
+  top: 40%;
+  right: 5%;
+  color: black;
+  /* width: 3vw; */
+  font-size: 1vw;
 }
 .autoContainer {
   background-color: #1f2023;

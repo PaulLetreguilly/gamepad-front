@@ -32,8 +32,9 @@ const Header = ({
         </Link>
       </div>
       <div className="right-header">
-        <Link to="/collection">
+        <Link to="/collection" style={{ textDecoration: "none" }}>
           <div
+            className="header-collection"
             style={{ color: "white" }}
             onClick={() => {
               if (location.pathname === "/") {
@@ -68,7 +69,7 @@ const Header = ({
               alt=""
               className="user-image"
             />
-            <span className="white">{username}</span>
+            <span className="white header-username">{username}</span>
             <div className="user-block"></div>
             <div
               className="log-out"
@@ -106,8 +107,9 @@ const Header = ({
             </div>
           </div>
         ) : (
-          <Link to="/login">
+          <Link to="/login" style={{ textDecoration: "none" }}>
             <div
+              className="header-login"
               style={{ color: "white" }}
               onClick={() => {
                 if (location.pathname === "/") {
