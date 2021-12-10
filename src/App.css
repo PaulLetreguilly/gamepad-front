@@ -5,12 +5,7 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #1f2023;
 }
-/* .profile-page .connect .left-part {
-  align-items: flex-start;
-}
-.profile-page .connect .left-part > div {
-  margin: 0 auto;
-} */
+
 .ft-size {
   font-size: 0.9vw;
   margin: 0.5vw 0;
@@ -485,7 +480,7 @@ input:checked + .slider:before {
 /************ GAME ************/
 /*-------- ********** --------*/
 .gamepage {
-  font-size: 1.2vw;
+  font-size: 1.1vw;
 }
 
 .poster .f12 {

@@ -27,7 +27,7 @@ const Header = ({
   return (
     <header>
       <div className="left-header">
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <img src={pic} alt="logo-header" />
         </Link>
       </div>
