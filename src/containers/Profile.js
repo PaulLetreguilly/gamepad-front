@@ -79,7 +79,7 @@ const Profile = ({ token, userId, setConnected, url }) => {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(update.data);
+      // console.log(update.data);
       if (update.data.image) {
         setConnected(
           update.data.token,
