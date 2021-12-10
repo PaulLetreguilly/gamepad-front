@@ -217,7 +217,28 @@ const Login = ({ setConnected, token, url }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
+            <div className="contain-password">
+              <input
+                type={!revealPassword ? "password" : "text"}
+                placeholder="Password..."
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {!revealPassword ? (
+                <FontAwesomeIcon
+                  icon="eye"
+                  className="eye-login"
+                  onClick={() => setRevealPassword(!revealPassword)}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon="eye-slash"
+                  className="eye-login"
+                  onClick={() => setRevealPassword(!revealPassword)}
+                />
+              )}
+            </div>
+            {/* <input
               type={!revealPassword ? "password" : "text"}
               placeholder="Password..."
               value={password}
@@ -235,7 +256,7 @@ const Login = ({ setConnected, token, url }) => {
                 className="eye-login"
                 onClick={() => setRevealPassword(!revealPassword)}
               />
-            )}
+            )} */}
             <div style={{ color: "red" }}>{error}</div>
             <div
               className="forgot"

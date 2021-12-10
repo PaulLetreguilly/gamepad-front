@@ -802,13 +802,19 @@ input:checked + .slider:before {
   padding: 0.5vw 0.58vw;
 }
 .right-part > div > input:last-child {
-  margin-left: 0.43rem;
+  margin-left: 0.5vw;
 }
 .right-part input[type="submit"] {
   background-color: red;
   color: white;
   border: none;
   border-radius: 0.5vw;
+}
+.right-part .contain-password input {
+  width: 20vw;
+}
+.right-part .contain-password {
+  position: relative;
 }
 form input[type="submit"]:hover {
   cursor: pointer;
@@ -820,7 +826,7 @@ form input[type="submit"]:hover {
   font-size: 0.875rem;
 }
 .forgot {
-  margin: 0.4rem 0 0.4rem 0;
+  margin: 0.5vw 0 0.5vw 0;
 }
 .forgot:hover {
   cursor: pointer;
@@ -833,8 +839,8 @@ form input[type="submit"]:hover {
 }
 .eye-login {
   position: absolute;
-  top: 48.5%;
-  right: 25%;
+  top: 38%;
+  right: 4%;
   color: black;
 }
 .eye-login:hover {
