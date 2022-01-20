@@ -11,7 +11,6 @@ import {
   faThumbsUp,
   faEye,
   faEyeSlash,
-  // faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Cookies from "js-cookie";
@@ -34,7 +33,6 @@ library.add(
   faThumbsUp,
   faEye,
   faEyeSlash
-  // faSearch
 );
 
 function App() {

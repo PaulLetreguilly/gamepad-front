@@ -146,6 +146,13 @@ header div img {
   border-radius: 0.3vw;
   border: none;
 }
+.mobile-search-bar {
+  width: 30vw;
+  margin: 1vw 0;
+  padding: 0.8vw 0.8vw;
+  border-radius: 0.3vw;
+  border: none;
+}
 .search-icon {
   position: absolute;
   top: 40%;
@@ -157,6 +164,17 @@ header div img {
 .autoContainer {
   background-color: #1f2023;
   width: 21.2vw;
+  height: 15vh;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: absolute;
+  top: 3.2rem;
+  left: 0;
+}
+.mobile-autoContainer {
+  background-color: #1f2023;
+  width: 31.2vw;
   height: 15vh;
   overflow: scroll;
   -ms-overflow-style: none;
@@ -346,6 +364,12 @@ h1 {
   position: relative;
   margin: 0.5vw 1vw;
 }
+.mobile-game {
+  width: 60vw;
+  height: 80vw;
+  position: relative;
+  margin: 5vw 10vw;
+}
 .game:hover {
   opacity: 0.8;
   cursor: pointer;
@@ -480,7 +504,7 @@ input:checked + .slider:before {
 /************ GAME ************/
 /*-------- ********** --------*/
 .gamepage {
-  font-size: 1.1vw;
+  font-size: 1.2vw;
 }
 
 .poster .f12 {
@@ -1018,7 +1042,7 @@ footer a {
 /* $$$$$$$$  QUERIES  $$$$$$$$$$ */
 /* $$$$$$$$$$$$$$$$$$$$$$$$$$$$$ */
 
-@media (min-width: "1441px") {
+/* @media (min-width: "1441px") {
 }
 @media (min-width: "1025px") and (max-width: "1440px") {
 }
@@ -1026,11 +1050,15 @@ footer a {
 }
 @media (min-width: "426px") and (max-width: "768px") {
 }
-@media (max-width: "425px") {
+@media screen and (max-width: "425px") {
   header div img {
     width: 5rem;
   }
-  .connect .left-part {
-    display: none;
+
+  .contain .game {
+    width: 50vw;
+    height: 60vw;
+    margin: 0.5vw 15vw;
   }
-}
+
+} */

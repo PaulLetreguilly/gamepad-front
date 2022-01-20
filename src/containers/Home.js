@@ -33,6 +33,34 @@ const Home = ({
   const [platformList, setPlatformList] = useState(); // get the platform list for filter
   const [genreList, setGenreList] = useState(); // get the genre list for filter
   const [check, setCheck] = useState(false); // switch component state
+  const [mobile, setMobile] = useState();
+
+  // constructor(props) {
+  //   super(props)
+  //   this.state = { matches: window.matchMedia("(min-width: 768px)").matches };
+  // }
+
+  // useEffect(() => {
+  //   const handler = (e) => this.setState({ matches: e.matches });
+  //   window.matchMedia("(max-width: 425px)").addEventListener("change", handler);
+  // }, []);
+  // const media = window.matchMedia(MediaQueryList);
+  // console.log(media);
+  // const media = window.matchMedia("(max-width: 425px)").matches;
+  // console.log("test : ", media);
+
+  // const test = () => {
+  //   if (media) {
+  //     console.log("ok");
+  //   } else {
+  //     console.log("not");
+  //   }
+  // };
+  // test();
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 425px)").matches;
+    setMobile(media);
+  }, []);
 
   const filter = {
     // sorting filter array
@@ -165,7 +193,7 @@ const Home = ({
           <input
             // type="text"
             // id="auto"
-            className="search-bar"
+            className={mobile ? "mobile-search-bar" : "search-bar"}
             placeholder="Search games..."
             value={search}
             onChange={(e) => {
@@ -189,7 +217,7 @@ const Home = ({
           />
           <FontAwesomeIcon icon="search" className="search-icon" />
           {display && (
-            <div className="autoContainer">
+            <div className={mobile ? "mobile-autoContainer" : "autoContainer"}>
               {/* {console.log("test : ", options)} */}
               {options
                 // .filter((str) => str.indexOf(search.toLowerCase()) > -1)
@@ -322,7 +350,7 @@ const Home = ({
           return (
             <div
               key={i}
-              className="game"
+              className={mobile ? "mobile-game" : "game"}
               onClick={() => {
                 if (search) {
                   Cookies.set("search", search);
