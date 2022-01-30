@@ -794,10 +794,20 @@ input:checked + .slider:before {
   /* background-color: teal; */
   display: flex;
 }
+.contain-mobile {
+  width: 160vw;
+  height: 60vh;
+  /* margin: 0 auto; */
+  margin: 0 10vw;
+  display: flex;
+  flex-wrap: wrap;
+}
 .left-part,
 .right-part {
   width: 49%;
   color: white;
+}
+.mobile.part {
 }
 .left-part {
   display: flex;

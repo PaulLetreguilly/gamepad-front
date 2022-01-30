@@ -15,6 +15,12 @@ const Signup = ({ setConnected, token, url }) => {
   const [dropDown, setDropDown] = useState(null);
   const [question, setQuestion] = useState("");
   const [revealPassword, setRevealPassword] = useState(false);
+  const [mobile, setMobile] = useState();
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 425px)").matches;
+    setMobile(media);
+  }, []);
 
   const questions = {
     results: [
