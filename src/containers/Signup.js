@@ -141,24 +141,26 @@ const Signup = ({ setConnected, token, url }) => {
 
   return (
     <section className="container">
-      <section className="contain connect">
-        <div className="left-part">
-          <img src={miniLogo} alt="logo" className="mini-logo" />
-          <h3>How does it work?</h3>
-          <div className="text">
-            <FontAwesomeIcon icon="user" className="connect-icon" />
-            Log in to your free account to be able to get all features of
-            Gamepad
+      <section className={mobile ? "contain-mobile" : "contain connect"}>
+        {!mobile && (
+          <div className="left-part">
+            <img src={miniLogo} alt="logo" className="mini-logo" />
+            <h3>How does it work?</h3>
+            <div className="text">
+              <FontAwesomeIcon icon="user" className="connect-icon" />
+              Log in to your free account to be able to get all features of
+              Gamepad
+            </div>
+            <div className="text">
+              <FontAwesomeIcon icon="bookmark" className="connect-icon" /> Add a
+              game to your collection
+            </div>
+            <div className="text">
+              <FontAwesomeIcon icon="comment-alt" className="connect-icon" />{" "}
+              Leave a review for a game
+            </div>
           </div>
-          <div className="text">
-            <FontAwesomeIcon icon="bookmark" className="connect-icon" /> Add a
-            game to your collection
-          </div>
-          <div className="text">
-            <FontAwesomeIcon icon="comment-alt" className="connect-icon" />{" "}
-            Leave a review for a game
-          </div>
-        </div>
+        )}
         <form
           autoComplete="off"
           className="right-part"
