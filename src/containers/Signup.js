@@ -17,6 +17,8 @@ const Signup = ({ setConnected, token, url }) => {
   const [revealPassword, setRevealPassword] = useState(false);
   const [mobile, setMobile] = useState();
 
+  // console.log("test : ", mobile)
+
   useEffect(() => {
     const media = window.matchMedia("(max-width: 425px)").matches;
     setMobile(media);
