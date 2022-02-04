@@ -22,6 +22,7 @@ const Signup = ({ setConnected, token, url }) => {
   useEffect(() => {
     const media = window.matchMedia("(max-width: 425px)").matches;
     setMobile(media);
+    //console.log("second test : ", media)
   }, []);
 
   const questions = {
