@@ -38,6 +38,7 @@ const Signup = ({ setConnected, token, url }) => {
     if (token) {
       navigate("/");
     }
+    // console.log("test token", token)
   }, [token]);
 
   const handleSubmit = async (e) => {
