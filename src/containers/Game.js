@@ -16,7 +16,7 @@ const Game = ({ userId, token, url }) => {
 
   const navigate = useNavigate();
 
-  data && console.log(data);
+  // data && console.log(data);
 
   const { slug } = useParams();
   useEffect(() => {
